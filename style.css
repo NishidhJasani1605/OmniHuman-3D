@@ -1,0 +1,1071 @@
+/* ==========================================================================
+   OMNI-HUMAN 3D — Master Styling
+   Supports both Jarvis Holographic Cyber-Deck & Clinical Medical Studio
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    user-select: none;
+}
+
+:root {
+    /* Jarvis Holo Theme Variables (Default) */
+    --bg-base: #05070d;
+    --bg-surface: #0a0f1d;
+    --bg-surface-elevated: #10182b;
+    --border-color: #1e2d4a;
+    --border-highlight: #38bdf8;
+    --text-primary: #f0f6fc;
+    --text-secondary: #94a3b8;
+    --accent: #38bdf8;
+    --accent-glow: rgba(56, 189, 248, 0.4);
+    --accent-emerald: #10b981;
+    --accent-warning: #f59e0b;
+    --accent-danger: #ef4444;
+}
+
+body.theme-studio {
+    /* Clinical Medical Studio Theme Variables */
+    --bg-base: #0f172a;
+    --bg-surface: #1e293b;
+    --bg-surface-elevated: #334155;
+    --border-color: #475569;
+    --border-highlight: #0284c7;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --accent: #0ea5e9;
+    --accent-glow: rgba(14, 165, 233, 0.25);
+}
+
+body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.omni-workspace {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ==========================================================================
+   Master Header
+   ========================================================================== */
+.omni-header {
+    height: 56px;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 100;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.omni-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid var(--border-highlight);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.omni-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    animation: pulseGlow 1.8s infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.omni-badge-text {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 1px;
+}
+
+.brand-main {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: #ffffff;
+}
+
+.brand-sub {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.header-center {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.scale-navigator {
+    display: flex;
+    background: var(--bg-base);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.scale-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.scale-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.disease-simulator-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.disease-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.disease-simulator-wrap select {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tool-btn {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tool-btn:hover {
+    color: #ffffff;
+    border-color: var(--border-highlight);
+}
+
+.tool-btn.active {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: var(--accent-emerald);
+    color: var(--accent-emerald);
+}
+
+/* ==========================================================================
+   Main Layout Grid
+   ========================================================================== */
+.omni-body-grid {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 56px - 150px); /* 150px reserved for bottom MPR dock */
+    overflow: hidden;
+}
+
+.omni-sidebar {
+    width: 320px;
+    background: var(--bg-surface);
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+    gap: 12px;
+    overflow-y: auto;
+}
+
+.left-col { border-right: 1px solid var(--border-color); }
+.right-col { border-left: 1px solid var(--border-color); width: 340px; }
+
+/* Sidebar Tabs */
+.sidebar-tab-row {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 4px;
+    gap: 4px;
+}
+
+.side-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 6px 4px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+
+.side-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+.tab-content {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tab-content.active {
+    display: flex;
+}
+
+.section-heading {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--accent);
+    margin-top: 4px;
+}
+
+/* Layer Control List */
+.layer-control-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.layer-row {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.layer-title-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.layer-title-box label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.opacity-slider {
+    accent-color: var(--accent);
+    cursor: pointer;
+    width: 100%;
+}
+
+.explode-box {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.explode-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.subtext {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+/* Organ Focus Chips */
+.organ-chip-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.organ-chip {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.organ-chip:hover {
+    color: #ffffff;
+    border-color: var(--accent);
+}
+
+.organ-chip.active {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: var(--accent);
+    color: #ffffff;
+}
+
+/* Kinematic Controls */
+.control-box {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.control-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.control-head strong {
+    color: var(--accent);
+    font-family: monospace;
+}
+
+.strain-legend-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.strain-title {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.strain-bar-gradient {
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(to right, #10b981, #f59e0b, #ef4444);
+}
+
+.strain-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--text-secondary);
+}
+
+/* Telemetry Nodes */
+.telemetry-node {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.t-node-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.t-node-title strong {
+    color: var(--accent);
+    font-family: monospace;
+}
+
+.t-bar-wrap {
+    height: 4px;
+    background: #0f172a;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.t-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.2s;
+}
+
+.packet-feed {
+    background: #020617;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px;
+    font-family: monospace;
+    font-size: 9px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.feed-header {
+    font-size: 9px;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.feed-lines {
+    color: #10b981;
+    overflow-y: hidden;
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   Center Viewport (3D Living Stage)
+   ========================================================================== */
+.omni-center-viewport {
+    flex: 1;
+    position: relative;
+    background: #03060d;
+}
+
+#three-master-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.viewport-hud-top {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.hud-pill-group {
+    display: flex;
+    background: rgba(10, 15, 29, 0.85);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 3px;
+    gap: 4px;
+    backdrop-filter: blur(12px);
+    pointer-events: auto;
+}
+
+.hud-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.hud-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+}
+
+.hud-btn.highlight {
+    background: linear-gradient(135deg, #0284c7, #2563eb);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.floating-organ-tag {
+    position: absolute;
+    display: none;
+    background: rgba(10, 15, 29, 0.95);
+    border: 1px solid var(--accent);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+    z-index: 50;
+}
+
+.jarvis-reticle-bottom {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.reticle-telemetry-text {
+    background: rgba(10, 15, 29, 0.8);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #7dd3fc;
+}
+
+.ret-live { color: #10b981; }
+
+/* ==========================================================================
+   Right Column (Physiology, AI & Dossier)
+   ========================================================================== */
+.vitals-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.vital-item {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.v-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+}
+
+.v-val {
+    font-size: 16px;
+    font-weight: 800;
+    font-family: monospace;
+    color: #ffffff;
+}
+
+.v-val small { font-size: 10px; color: var(--text-secondary); }
+
+/* Live ECG Card */
+.ecg-monitor-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.card-title-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.ecg-status-text {
+    font-size: 10px;
+    color: #10b981;
+}
+
+#ecg-canvas {
+    width: 100%;
+    height: 75px;
+    background: #020617;
+    border-radius: 4px;
+    border: 1px solid #1e293b;
+}
+
+.hr-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.hr-slider-row input[type="range"] {
+    flex: 1;
+    accent-color: #ef4444;
+}
+
+.hr-slider-row span {
+    font-family: monospace;
+    color: #ef4444;
+    min-width: 50px;
+    font-weight: 700;
+}
+
+/* Gemini Clinical Diagnostic AI */
+.clinical-ai-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ai-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ai-tag {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: var(--accent);
+}
+
+.ai-confidence {
+    font-size: 10px;
+    color: #10b981;
+    font-weight: 700;
+}
+
+.ai-diagnosis-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.ai-diagnosis-body {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+.ai-treatment-box {
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.ai-treatment-head {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2px;
+}
+
+.ai-treatment-content {
+    font-size: 10px;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+/* Encyclopedia Card */
+.encyclopedia-card {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: auto;
+}
+
+.structure-fma {
+    font-size: 10px;
+    color: #64748b;
+    font-family: monospace;
+}
+
+.struct-name {
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.struct-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   Bottom Multiplanar Radiology (MPR) Deck
+   ========================================================================== */
+.omni-mpr-dock {
+    height: 150px;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 8px 16px;
+    gap: 6px;
+    z-index: 50;
+}
+
+.mpr-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mpr-badge {
+    background: rgba(56, 189, 248, 0.15);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+.mpr-subtitle {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-left: 8px;
+}
+
+.mpr-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.mpr-preset-group {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.preset-label {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.mpr-btn {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.mpr-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+}
+
+.mpr-slider-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.mpr-slider-box input[type="range"] {
+    accent-color: var(--accent);
+    width: 140px;
+}
+
+.mpr-slider-box span {
+    font-family: monospace;
+    color: var(--accent);
+    min-width: 50px;
+}
+
+.mpr-slice-deck {
+    display: flex;
+    justify-content: space-around;
+    gap: 14px;
+    flex: 1;
+}
+
+.mpr-quad {
+    flex: 1;
+    background: #020617;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quad-label {
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #7dd3fc;
+    letter-spacing: 0.5px;
+    z-index: 10;
+}
+
+.mpr-quad canvas {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+/* ==========================================================================
+   Microscopic Cellular Twin Modal (GenBio AIDO Lab Zoom Integration)
+   ========================================================================== */
+.cellular-twin-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(3, 7, 18, 0.92);
+    backdrop-filter: blur(16px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.cellular-twin-modal.active {
+    display: flex;
+}
+
+.cell-modal-container {
+    width: 90vw;
+    height: 85vh;
+    background: #090e17;
+    border: 1px solid var(--border-highlight);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+}
+
+.cell-modal-header {
+    height: 52px;
+    background: #0f172a;
+    border-bottom: 1px solid #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.c-badge {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    border: 1px solid #10b981;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.c-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-left: 8px;
+}
+
+.c-cell-type {
+    font-size: 12px;
+    color: #38bdf8;
+    margin-left: 12px;
+    font-family: monospace;
+}
+
+.cell-close-btn {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #cbd5e1;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cell-modal-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.cell-panel-left, .cell-panel-right {
+    width: 320px;
+    background: #090e17;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+}
+
+.cell-panel-left { border-right: 1px solid #1e293b; }
+.cell-panel-right { border-left: 1px solid #1e293b; width: 340px; }
+
+.c-sec-title {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #38bdf8;
+    border-bottom: 1px solid #1e293b;
+    padding-bottom: 4px;
+}
+
+.c-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.c-field label {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.c-field select {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #ffffff;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 11px;
+}
+
+.cell-run-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    border: none;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.cell-status-text {
+    font-size: 11px;
+    color: #94a3b8;
+    line-height: 1.4;
+    background: #0f172a;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #1e293b;
+}
+
+.chan-toggles-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.chan-toggle {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--cc);
+    color: #94a3b8;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.chan-toggle.active {
+    background: var(--cc);
+    color: #ffffff;
+    box-shadow: 0 0 10px var(--cc);
+}
+
+.cell-viewport-center {
+    flex: 1;
+    position: relative;
+    background: #05080e;
+}
+
+#cell-three-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.cell-canvas-caption {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: #64748b;
+    background: rgba(15, 23, 42, 0.8);
+    padding: 4px 12px;
+    border-radius: 12px;
+}
+
+.radar-box { height: 190px; }
+.bar-box { height: 160px; }

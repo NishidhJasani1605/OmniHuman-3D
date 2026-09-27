@@ -1,0 +1,903 @@
+/* ==========================================================================
+   Human Atlas - Medical Precision Dark Obsidian Theme
+   Master UI Color Harmony & Glassmorphic Refinement
+   ========================================================================== */
+
+:root,
+:host,
+html.dark,
+.dark {
+  /* Tailwind CSS variable overrides for seamless dark mode */
+  --background: #060812;
+  --foreground: #f8fafc;
+  --card: #0b1120;
+  --card-foreground: #f8fafc;
+  --popover: #0b1120;
+  --popover-foreground: #f8fafc;
+  --primary: #0ea5e9;
+  --primary-foreground: #ffffff;
+  --secondary: #141d33;
+  --secondary-foreground: #e2e8f0;
+  --muted: #141e33;
+  --muted-foreground: #94a3b8;
+  --accent: #1e293b;
+  --accent-foreground: #38bdf8;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #38bdf8;
+  color-scheme: dark !important;
+
+  /* Custom Theme Tokens */
+  --theme-bg: #05070e;
+  --theme-glass: rgba(11, 17, 32, 0.82);
+  --theme-glass-panel: rgba(10, 16, 30, 0.9);
+  --theme-border: rgba(255, 255, 255, 0.08);
+  --theme-border-highlight: rgba(255, 255, 255, 0.15);
+  --theme-border-cyan: rgba(56, 189, 248, 0.35);
+  --theme-cyan: #38bdf8;
+  --theme-cyan-glow: rgba(56, 189, 248, 0.25);
+  --theme-text-bright: #ffffff;
+  --theme-text-main: #e2e8f0;
+  --theme-text-muted: #94a3b8;
+  --theme-text-dim: #64748b;
+  --theme-blur: blur(24px) saturate(180%);
+}
+
+/* Base Body & Studio */
+html, body, #root, .studio {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-text-main) !important;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Remove original light vignette */
+.vignette {
+  display: none !important;
+}
+
+/* Canvas contrast enhancement */
+canvas {
+  filter: contrast(1.08) brightness(1.02);
+}
+
+/* Shared Glass Containers */
+.identity, 
+.layers-panel, 
+.bottom-dock, 
+.view-controls, 
+.glass, 
+.panel-foot {
+  background: var(--theme-glass) !important;
+  backdrop-filter: var(--theme-blur) !important;
+  -webkit-backdrop-filter: var(--theme-blur) !important;
+  border: 1px solid var(--theme-border) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  color: var(--theme-text-main) !important;
+}
+
+/* ==========================================================================
+   1. TOP LEFT IDENTITY CARD
+   ========================================================================== */
+.identity {
+  border-radius: 14px !important;
+  padding: 14px 18px !important;
+}
+
+.identity .eyebrow {
+  color: var(--theme-text-muted) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.identity .status-dot {
+  width: 7px !important;
+  height: 7px !important;
+  background: var(--theme-cyan) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 8px var(--theme-cyan) !important;
+}
+
+.identity h1 {
+  color: var(--theme-text-bright) !important;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  letter-spacing: -0.02em !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 2px 0 !important;
+}
+
+.identity .edition {
+  background: rgba(56, 189, 248, 0.12) !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  color: var(--theme-cyan) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  padding: 1px 6px !important;
+  border-radius: 6px !important;
+}
+
+.identity .identity-meta {
+  color: var(--theme-text-dim) !important;
+  font-size: 11px !important;
+}
+
+.identity .identity-meta span {
+  color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ==========================================================================
+   2. TOP RIGHT SEARCH BAR & ACTIONS
+   ========================================================================== */
+.top-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.top-actions button {
+  background: rgba(16, 24, 44, 0.75) !important;
+  backdrop-filter: var(--theme-blur) !important;
+  -webkit-backdrop-filter: var(--theme-blur) !important;
+  border: 1px solid var(--theme-border-highlight) !important;
+  color: var(--theme-text-main) !important;
+  border-radius: 12px !important;
+  height: 42px !important;
+  padding: 0 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer !important;
+}
+
+.top-actions button:hover {
+  background: rgba(24, 36, 64, 0.95) !important;
+  border-color: var(--theme-cyan) !important;
+  color: var(--theme-text-bright) !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5), 0 0 16px var(--theme-cyan-glow) !important;
+  transform: translateY(-1px) !important;
+}
+
+.top-actions button svg {
+  color: var(--theme-cyan) !important;
+  flex-shrink: 0 !important;
+}
+
+.top-actions button kbd {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 4px !important;
+  color: var(--theme-text-muted) !important;
+  font-size: 11px !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  padding: 1px 6px !important;
+  margin-left: 12px !important;
+}
+
+.top-actions .icon-button {
+  width: 42px !important;
+  min-width: 42px !important;
+  height: 42px !important;
+  padding: 0 !important;
+  justify-content: center !important;
+  border-radius: 12px !important;
+}
+
+.top-actions .icon-button svg {
+  color: var(--theme-text-muted) !important;
+}
+
+.top-actions .icon-button:hover svg {
+  color: var(--theme-cyan) !important;
+}
+
+/* ==========================================================================
+   3. LEFT "SYSTEMS" PANEL
+   ========================================================================== */
+.layers-panel {
+  border-radius: 16px !important;
+  padding: 16px !important;
+  width: 270px !important;
+}
+
+.layers-panel .panel-heading {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 12px !important;
+}
+
+.layers-panel .panel-heading span {
+  color: var(--theme-text-bright) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.panel-heading .small-number {
+  background: rgba(56, 189, 248, 0.12) !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  color: var(--theme-cyan) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  border-radius: 6px !important;
+  padding: 1px 8px !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Presets Segmented Control ("All | Skeleton | Organs") */
+.layer-presets {
+  background: rgba(6, 10, 20, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 10px !important;
+  padding: 3px !important;
+  gap: 3px !important;
+  margin: 0 0 12px 0 !important;
+  display: flex !important;
+}
+
+.layer-presets button {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 7px !important;
+  color: var(--theme-text-muted) !important;
+  flex: 1 !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 0 6px !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-shadow: none !important;
+}
+
+.layer-presets button:hover {
+  color: var(--theme-text-bright) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.layer-presets button[aria-pressed="true"] {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95)) !important;
+  color: var(--theme-cyan) !important;
+  border: 1px solid var(--theme-border-cyan) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 12px var(--theme-cyan-glow) !important;
+  font-weight: 600 !important;
+}
+
+/* System List Rows */
+.system-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+.system-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 5px 8px !important;
+  border-radius: 8px !important;
+  transition: background 0.15s ease !important;
+}
+
+.system-row:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.system-row .system-name {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  color: var(--theme-text-main) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  flex: 1 !important;
+}
+
+.system-row .system-name:hover {
+  color: var(--theme-text-bright) !important;
+}
+
+.system-row .system-dot {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 0 6px currentColor !important;
+}
+
+.system-row .system-count {
+  color: var(--theme-text-dim) !important;
+  font-size: 11px !important;
+  font-variant-numeric: tabular-nums !important;
+  margin-left: auto !important;
+  margin-right: 8px !important;
+}
+
+/* ==========================================================================
+   4. ACCENTED SWITCH TOGGLE
+   ========================================================================== */
+[data-slot="switch"],
+.system-row [data-slot="switch"] {
+  width: 32px !important;
+  height: 18px !important;
+  border-radius: 9999px !important;
+  padding: 2px !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  border: 1px solid transparent !important;
+}
+
+/* Checked Switch Track */
+[data-slot="switch"][data-checked],
+[data-slot="switch"][data-state="checked"],
+.system-row [data-slot="switch"][data-checked],
+.system-row [data-slot="switch"][data-state="checked"] {
+  background: linear-gradient(135deg, #0284c7, #0ea5e9) !important;
+  border-color: rgba(56, 189, 248, 0.5) !important;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.4) !important;
+}
+
+/* Unchecked Switch Track */
+[data-slot="switch"][data-unchecked],
+[data-slot="switch"][data-state="unchecked"],
+.system-row [data-slot="switch"][data-unchecked],
+.system-row [data-slot="switch"][data-state="unchecked"] {
+  background: rgba(22, 32, 52, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+}
+
+/* Switch Thumb */
+[data-slot="switch-thumb"],
+.system-row [data-slot="switch-thumb"] {
+  background: #ffffff !important;
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Systems Footer */
+.layers-panel .panel-foot {
+  background: transparent !important;
+  border: none !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: none !important;
+  padding: 10px 0 0 0 !important;
+  margin-top: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.layers-panel .panel-foot span {
+  color: var(--theme-text-dim) !important;
+  font-size: 11px !important;
+}
+
+.layers-panel .panel-foot button {
+  color: var(--theme-text-muted) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: color 0.15s ease !important;
+}
+
+.layers-panel .panel-foot button:hover {
+  color: #f87171 !important;
+}
+
+/* ==========================================================================
+   5. BOTTOM "EXPLODE ANATOMY" DOCK
+   ========================================================================== */
+.bottom-dock {
+  border-radius: 16px !important;
+  padding: 14px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.explode-control {
+  flex: 1 !important;
+  min-width: 260px !important;
+}
+
+.explode-label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
+}
+
+.explode-label label {
+  color: var(--theme-text-bright) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Explode 0% Percentage Badge */
+.explode-label output {
+  background: rgba(14, 165, 233, 0.12) !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  color: var(--theme-cyan) !important;
+  border-radius: 6px !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 2px 8px !important;
+  min-width: 44px !important;
+  text-align: center !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.15) !important;
+}
+
+.explode-label output span {
+  color: var(--theme-cyan) !important;
+  opacity: 0.8 !important;
+  margin-left: 1px !important;
+}
+
+/* Slider Track & Range */
+.explode-control [data-slot="slider"] {
+  padding: 8px 0 !important;
+}
+
+[data-slot="slider-track"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 9999px !important;
+  height: 5px !important;
+}
+
+[data-slot="slider-range"] {
+  background: linear-gradient(90deg, #0284c7, #38bdf8) !important;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.5) !important;
+  border-radius: 9999px !important;
+  height: 100% !important;
+}
+
+/* Slider Thumb Knob */
+.explode-control [data-slot="slider-thumb"],
+[data-slot="slider-thumb"] {
+  background: var(--theme-cyan) !important;
+  border: 2.5px solid #060913 !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.7), 0 2px 8px rgba(0, 0, 0, 0.6) !important;
+  cursor: grab !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.explode-control [data-slot="slider-thumb"]:hover,
+[data-slot="slider-thumb"]:hover {
+  transform: scale(1.18) !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.9) !important;
+}
+
+.slider-endpoints {
+  display: flex !important;
+  justify-content: space-between !important;
+  margin-top: 4px !important;
+}
+
+.slider-endpoints span {
+  color: var(--theme-text-dim) !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+}
+
+/* Reset Button in Dock */
+.dock-reset {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  color: var(--theme-text-muted) !important;
+  padding: 8px 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.dock-reset:hover {
+  background: rgba(56, 189, 248, 0.12) !important;
+  border-color: var(--theme-border-cyan) !important;
+  color: var(--theme-cyan) !important;
+}
+
+/* ==========================================================================
+   6. RIGHT VERTICAL CAMERA TOOLBAR
+   ========================================================================== */
+.view-controls {
+  border-radius: 14px !important;
+  padding: 5px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+}
+
+.view-controls button {
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 8px !important;
+  color: var(--theme-text-muted) !important;
+  width: 38px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.view-controls button:hover {
+  background: rgba(255, 255, 255, 0.07) !important;
+  color: var(--theme-text-bright) !important;
+}
+
+.view-controls button.active,
+.view-controls button[aria-pressed="true"] {
+  background: rgba(56, 189, 248, 0.18) !important;
+  border-color: var(--theme-border-cyan) !important;
+  color: var(--theme-cyan) !important;
+  box-shadow: 0 0 12px var(--theme-cyan-glow) !important;
+}
+
+.view-controls i {
+  background: rgba(255, 255, 255, 0.08) !important;
+  height: 1px !important;
+  margin: 3px 6px !important;
+}
+
+/* ==========================================================================
+   7. SCENE CAPTION (ADULT HUMAN · MALE)
+   ========================================================================== */
+.scene-caption {
+  position: absolute !important;
+  bottom: 120px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  color: var(--theme-text-dim) !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  pointer-events: none !important;
+}
+
+.scene-caption .caption-line {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent) !important;
+  height: 1px !important;
+  width: 36px !important;
+}
+
+/* ==========================================================================
+   8. FOOTER
+   ========================================================================== */
+.studio-footer {
+  color: var(--theme-text-dim) !important;
+  font-size: 11px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 24px !important;
+}
+
+.studio-footer b {
+  color: rgba(255, 255, 255, 0.15) !important;
+  margin: 0 4px !important;
+}
+
+.studio-footer button {
+  color: var(--theme-text-dim) !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: color 0.15s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.studio-footer button:hover {
+  color: var(--theme-text-muted) !important;
+}
+
+/* ==========================================================================
+   9. SEARCH PANEL POPUP & MODAL
+   ========================================================================== */
+.search-panel {
+  background: var(--theme-glass-panel) !important;
+  backdrop-filter: var(--theme-blur) !important;
+  -webkit-backdrop-filter: var(--theme-blur) !important;
+  border: 1px solid var(--theme-border-cyan) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8), 0 0 24px rgba(14, 165, 233, 0.15) !important;
+  color: var(--theme-text-main) !important;
+  z-index: 50 !important;
+}
+
+.search-panel .panel-heading span {
+  color: var(--theme-text-bright) !important;
+  font-weight: 700 !important;
+}
+
+.search-panel [data-slot="input-group"] {
+  background: rgba(18, 26, 44, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 10px !important;
+}
+
+.search-panel input {
+  color: var(--theme-text-bright) !important;
+  font-size: 13.5px !important;
+}
+
+.search-panel input::placeholder {
+  color: var(--theme-text-dim) !important;
+}
+
+.search-panel .anatomy-search-results {
+  background: transparent !important;
+}
+
+.search-panel [data-slot="combobox-item"],
+.search-panel div[role="option"] {
+  color: var(--theme-text-main) !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.search-panel [data-slot="combobox-item"]:hover,
+.search-panel div[role="option"]:hover,
+.search-panel [data-selected] {
+  background: rgba(56, 189, 248, 0.14) !important;
+  color: var(--theme-cyan) !important;
+}
+
+.search-panel .search-result-name {
+  color: var(--theme-text-bright) !important;
+  font-weight: 500 !important;
+}
+
+.search-panel .small-number {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--theme-text-muted) !important;
+  border-radius: 6px !important;
+}
+
+.search-panel .search-note {
+  color: var(--theme-text-dim) !important;
+  font-size: 11px !important;
+}
+
+/* ==========================================================================
+   10. DETAIL SHEET (SELECTED PART INSPECTOR)
+   ========================================================================== */
+.detail-sheet,
+.about-sheet {
+  background: var(--theme-glass-panel) !important;
+  backdrop-filter: var(--theme-blur) !important;
+  -webkit-backdrop-filter: var(--theme-blur) !important;
+  border: 1px solid var(--theme-border-highlight) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  color: var(--theme-text-main) !important;
+}
+
+.detail-sheet .eyebrow,
+.about-sheet .eyebrow {
+  color: var(--theme-cyan) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+}
+
+.detail-sheet .structure-title,
+.about-sheet .structure-title {
+  color: var(--theme-text-bright) !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+}
+
+.detail-sheet .structure-description {
+  color: #cbd5e1 !important;
+  font-size: 12.5px !important;
+  line-height: 1.6 !important;
+}
+
+.detail-sheet .context-note {
+  color: var(--theme-text-dim) !important;
+  font-size: 11px !important;
+}
+
+.detail-sheet .structure-meta {
+  display: flex !important;
+  gap: 8px !important;
+  margin: 12px 0 !important;
+}
+
+.detail-sheet .structure-meta span {
+  background: rgba(18, 26, 44, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  font-size: 10px !important;
+  color: var(--theme-text-dim) !important;
+  flex: 1 !important;
+}
+
+.detail-sheet .structure-meta strong {
+  display: block !important;
+  color: var(--theme-text-bright) !important;
+  font-size: 13px !important;
+  margin-top: 2px !important;
+}
+
+.detail-sheet .member-list h3 {
+  color: var(--theme-text-bright) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  margin-bottom: 6px !important;
+}
+
+.detail-sheet .member-list button {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 6px !important;
+  color: var(--theme-text-main) !important;
+  padding: 6px 10px !important;
+  font-size: 11.5px !important;
+}
+
+.detail-sheet .member-list button:hover {
+  background: rgba(56, 189, 248, 0.12) !important;
+  color: var(--theme-cyan) !important;
+  border-color: var(--theme-border-cyan) !important;
+}
+
+.detail-sheet .source-link {
+  color: var(--theme-cyan) !important;
+  font-size: 11px !important;
+}
+
+/* Detail Actions */
+.detail-actions .primary-action {
+  background: linear-gradient(135deg, #0284c7, #0ea5e9) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 10px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.35) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.detail-actions .primary-action:hover {
+  background: linear-gradient(135deg, #0369a1, #0284c7) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.5) !important;
+}
+
+.detail-actions .primary-action.active {
+  background: rgba(30, 41, 59, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: var(--theme-text-bright) !important;
+  box-shadow: none !important;
+}
+
+.detail-actions .secondary-action {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  color: var(--theme-text-muted) !important;
+  padding: 8px !important;
+  font-size: 11px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.detail-actions .secondary-action:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--theme-text-bright) !important;
+}
+
+.detail-sheet [data-slot="sheet-close"],
+.about-sheet [data-slot="sheet-close"] {
+  color: var(--theme-text-muted) !important;
+  border-radius: 8px !important;
+  transition: all 0.15s ease !important;
+}
+
+.detail-sheet [data-slot="sheet-close"]:hover,
+.about-sheet [data-slot="sheet-close"]:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--theme-text-bright) !important;
+}
+
+.about-sheet .about-copy p {
+  color: var(--theme-text-main) !important;
+  font-size: 12.5px !important;
+  line-height: 1.6 !important;
+}
+
+.about-sheet .about-copy h3 {
+  color: var(--theme-text-bright) !important;
+  font-size: 13px !important;
+  margin-top: 14px !important;
+}
+
+.about-sheet .about-copy a {
+  color: var(--theme-cyan) !important;
+  font-size: 11.5px !important;
+}
+
+/* ==========================================================================
+   11. HOVER TOOLTIP & SCROLLBARS
+   ========================================================================== */
+.part-hover {
+  background: rgba(8, 12, 22, 0.95) !important;
+  border: 1px solid rgba(56, 189, 248, 0.5) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 12px var(--theme-cyan-glow) !important;
+  color: var(--theme-cyan) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  border-radius: 6px !important;
+  padding: 4px 10px !important;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.4);
+}
