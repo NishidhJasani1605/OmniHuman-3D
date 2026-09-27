@@ -1,0 +1,692 @@
+[
+  {
+    "id": "FJ1450",
+    "name": "superficial perineal muscle",
+    "conceptId": "FMA19728",
+    "system": "muscular",
+    "category": "muscular",
+    "homologue": "Female superficial transverse perineal",
+    "description": "Perineal muscular stabilization of central tendon",
+    "vertexCount": 240,
+    "indexCount": 1050,
+    "bounds": [
+      [
+        -0.014787400000000001,
+        0.8317212,
+        -0.08305610000000001
+      ],
+      [
+        -0.00328195,
+        0.8529722000000001,
+        -0.0612757
+      ]
+    ]
+  },
+  {
+    "id": "FJ2056",
+    "name": "Deep dorsal vein of penis",
+    "conceptId": "FMA21354",
+    "system": "venous",
+    "category": "genitalia",
+    "homologue": "Deep dorsal vein of clitoris",
+    "description": "Drains erectile venous cavernous spaces",
+    "vertexCount": 287,
+    "indexCount": 1554,
+    "bounds": [
+      [
+        -0.0050518099999999995,
+        0.7922912,
+        0.0023139999999999827
+      ],
+      [
+        0.00505933,
+        0.8721682000000001,
+        0.078961
+      ]
+    ]
+  },
+  {
+    "id": "FJ2208",
+    "name": "Superficial dorsal vein of penis",
+    "conceptId": "FMA21384",
+    "system": "venous",
+    "category": "genitalia",
+    "homologue": "Superficial dorsal veins of clitoris",
+    "description": "Drains penile subcutaneous prepuce and skin",
+    "vertexCount": 164,
+    "indexCount": 972,
+    "bounds": [
+      [
+        -0.0009887049999999999,
+        0.7924132,
+        0.04358500000000001
+      ],
+      [
+        0.0009747930000000001,
+        0.8714392000000001,
+        0.086735
+      ]
+    ]
+  },
+  {
+    "id": "FJ3132",
+    "name": "Corpus cavernosum of penis",
+    "conceptId": "FMA19618",
+    "system": "reproductive",
+    "category": "genitalia",
+    "homologue": "Body & crura of clitoris (FMA20192)",
+    "description": "Bilateral paired dorsal erectile columns",
+    "vertexCount": 698,
+    "indexCount": 3210,
+    "bounds": [
+      [
+        -0.032107500000000004,
+        0.7865072000000001,
+        -0.035496799999999995
+      ],
+      [
+        0.0311028,
+        0.8667872000000001,
+        0.09561699999999998
+      ]
+    ]
+  },
+  {
+    "id": "FJ3133",
+    "name": "Corpus spongiosum of penis",
+    "conceptId": "FMA19617",
+    "system": "reproductive",
+    "category": "genitalia",
+    "homologue": "Vestibular bulbs (FMA19985)",
+    "description": "Ventral erectile column enclosing the penile urethra",
+    "vertexCount": 280,
+    "indexCount": 1632,
+    "bounds": [
+      [
+        -0.0112803,
+        0.7870582,
+        -0.024984700000000012
+      ],
+      [
+        0.009973979999999999,
+        0.8583422,
+        0.08713599999999999
+      ]
+    ]
+  },
+  {
+    "id": "FJ3134",
+    "name": "Glans penis",
+    "conceptId": "FMA18247",
+    "system": "reproductive",
+    "category": "genitalia",
+    "homologue": "Glans clitoridis (FMA20193)",
+    "description": "Distal sensitive expansion of corpus spongiosum",
+    "vertexCount": 900,
+    "indexCount": 3984,
+    "bounds": [
+      [
+        -0.0155145,
+        0.7857502000000001,
+        0.076125
+      ],
+      [
+        0.0141674,
+        0.8162272,
+        0.10086099999999998
+      ]
+    ]
+  },
+  {
+    "id": "FJ3135",
+    "name": "Left deferent duct",
+    "conceptId": "FMA19236",
+    "system": "reproductive",
+    "category": "internal_reproductive",
+    "homologue": "Gartner duct (vestigial mesonephric duct)",
+    "description": "Muscular conduit propelling sperm to ejaculatory duct",
+    "vertexCount": 689,
+    "indexCount": 2466,
+    "bounds": [
+      [
+        0.00255171,
+        0.7727102000000001,
+        -0.04743750000000001
+      ],
+      [
+        0.10262500000000001,
+        0.9359222000000001,
+        0.05480499999999999
+      ]
+    ]
+  },
+  {
+    "id": "FJ3136",
+    "name": "Left epididymis",
+    "conceptId": "FMA18257",
+    "system": "reproductive",
+    "category": "internal_reproductive",
+    "homologue": "Epoophoron (cranial mesonephric tubules)",
+    "description": "Convoluted duct system for sperm maturation & storage",
+    "vertexCount": 180,
+    "indexCount": 690,
+    "bounds": [
+      [
+        0.0129962,
+        0.7773792,
+        0.039330000000000004
+      ],
+      [
+        0.0238831,
+        0.8030832,
+        0.05958000000000002
+      ]
+    ]
+  },
+  {
+    "id": "FJ3137",
+    "name": "Left seminal vesicle",
+    "conceptId": "FMA19388",
+    "system": "reproductive",
+    "category": "internal_reproductive",
+    "homologue": "Uterine secretions / Endometrial glands",
+    "description": "Tubular accessory glands producing alkaline seminal fluid",
+    "vertexCount": 240,
+    "indexCount": 1086,
+    "bounds": [
+      [
+        0.00235848,
+        0.8669542,
+        -0.0447772
+      ],
+      [
+        0.034014,
+        0.8964282000000001,
+        -0.025041700000000014
+      ]
+    ]
+  },
+  {
+    "id": "FJ3138",
+    "name": "Left testis",
+    "conceptId": "FMA7212",
+    "system": "reproductive",
+    "category": "internal_reproductive",
+    "homologue": "Left ovary (FMA7206)",
+    "description": "Primary male gonad producing spermatozoa and androgens",
+    "vertexCount": 107,
+    "indexCount": 630,
+    "bounds": [
+      [
+        0.0074975400000000005,
+        0.7678642000000001,
+        0.041354999999999975
+      ],
+      [
+        0.0275581,
+        0.7967942,
+        0.06351400000000001
+      ]
+    ]
+  },
+  {
+    "id": "FJ3139",
+    "name": "Prostate",
+    "conceptId": "FMA9600",
+    "system": "reproductive",
+    "category": "prostate_urinary",
+    "homologue": "Skene paraurethral glands (FMA19988)",
+    "description": "Fibromuscular glandular organ surrounding proximal urethra",
+    "vertexCount": 223,
+    "indexCount": 1326,
+    "bounds": [
+      [
+        -0.0178262,
+        0.8501942,
+        -0.0354951
+      ],
+      [
+        0.016457799999999998,
+        0.8705502,
+        -0.0035391999999999924
+      ]
+    ]
+  },
+  {
+    "id": "FJ3140",
+    "name": "Right deferent duct",
+    "conceptId": "FMA19235",
+    "system": "reproductive",
+    "category": "internal_reproductive",
+    "homologue": "Gartner duct (vestigial mesonephric duct)",
+    "description": "Muscular conduit propelling sperm to ejaculatory duct",
+    "vertexCount": 667,
+    "indexCount": 2208,
+    "bounds": [
+      [
+        -0.0840843,
+        0.7727012000000001,
+        -0.047036400000000006
+      ],
+      [
+        -0.0038980700000000004,
+        0.9390512000000001,
+        0.054479
+      ]
+    ]
+  },
+  {
+    "id": "FJ3141",
+    "name": "Right epididymis",
+    "conceptId": "FMA18256",
+    "system": "reproductive",
+    "category": "internal_reproductive",
+    "homologue": "Epoophoron (cranial mesonephric tubules)",
+    "description": "Convoluted duct system for sperm maturation & storage",
+    "vertexCount": 115,
+    "indexCount": 228,
+    "bounds": [
+      [
+        -0.026083400000000003,
+        0.7787952,
+        0.04017599999999999
+      ],
+      [
+        -0.0167162,
+        0.8029892000000001,
+        0.059386999999999995
+      ]
+    ]
+  },
+  {
+    "id": "FJ3142",
+    "name": "Right testis",
+    "conceptId": "FMA7211",
+    "system": "reproductive",
+    "category": "internal_reproductive",
+    "homologue": "Right ovary (FMA7206)",
+    "description": "Primary male gonad producing spermatozoa and androgens",
+    "vertexCount": 108,
+    "indexCount": 636,
+    "bounds": [
+      [
+        -0.030846000000000002,
+        0.7686712,
+        0.041190000000000004
+      ],
+      [
+        -0.0104597,
+        0.7970992000000001,
+        0.063355
+      ]
+    ]
+  },
+  {
+    "id": "FJ3143",
+    "name": "Right seminal vesicle",
+    "conceptId": "FMA19387",
+    "system": "reproductive",
+    "category": "internal_reproductive",
+    "homologue": "Uterine secretions / Endometrial glands",
+    "description": "Tubular accessory glands producing alkaline seminal fluid",
+    "vertexCount": 232,
+    "indexCount": 1062,
+    "bounds": [
+      [
+        -0.0353238,
+        0.8669922,
+        -0.0451294
+      ],
+      [
+        -0.0036314600000000004,
+        0.8963952000000001,
+        -0.02494790000000001
+      ]
+    ]
+  },
+  {
+    "id": "FJ3148",
+    "name": "Urethra",
+    "conceptId": "FMA19667",
+    "system": "urinary",
+    "category": "prostate_urinary",
+    "homologue": "Female urethra (FMA19667)",
+    "description": "Extended 20cm urinary & ejaculatory conduit",
+    "vertexCount": 269,
+    "indexCount": 918,
+    "bounds": [
+      [
+        -0.00160824,
+        0.7866802,
+        -0.020047300000000004
+      ],
+      [
+        0.000313633,
+        0.8706232,
+        0.084174
+      ]
+    ]
+  },
+  {
+    "id": "FJ3149",
+    "name": "Urinary bladder",
+    "conceptId": "FMA15900",
+    "system": "urinary",
+    "category": "prostate_urinary",
+    "homologue": "Female urinary bladder (HRA_F_15-18)",
+    "description": "Detrusor urinary reservoir resting above prostate",
+    "vertexCount": 126,
+    "indexCount": 672,
+    "bounds": [
+      [
+        -0.0341466,
+        0.8678432,
+        -0.043474700000000005
+      ],
+      [
+        0.0326238,
+        0.9081002000000001,
+        0.028240000000000015
+      ]
+    ]
+  },
+  {
+    "id": "FJ3152",
+    "name": "Right hip bone",
+    "conceptId": "FMA16586",
+    "system": "skeletal",
+    "category": "pelvis",
+    "homologue": "Female right hip bone (gynecoid)",
+    "description": "Android ilium, ischium, and pubis with narrow subpubic angle",
+    "vertexCount": 1036,
+    "indexCount": 5694,
+    "bounds": [
+      [
+        -0.14487200000000003,
+        0.8302642000000001,
+        -0.09888122
+      ],
+      [
+        -0.0027903,
+        1.0359802,
+        0.039019
+      ]
+    ]
+  },
+  {
+    "id": "FJ3288",
+    "name": "Left hip bone",
+    "conceptId": "FMA16587",
+    "system": "skeletal",
+    "category": "pelvis",
+    "homologue": "Female left hip bone (gynecoid)",
+    "description": "Android ilium, ischium, and pubis with narrow subpubic angle",
+    "vertexCount": 986,
+    "indexCount": 5424,
+    "bounds": [
+      [
+        0.0027503099999999997,
+        0.8300622000000001,
+        -0.09868506
+      ],
+      [
+        0.144754,
+        1.0362012,
+        0.03909499999999999
+      ]
+    ]
+  },
+  {
+    "id": "FJ3393",
+    "name": "Sacrum",
+    "conceptId": "FMA16202",
+    "system": "skeletal",
+    "category": "pelvis",
+    "homologue": "Female sacrum (HRA_F_1)",
+    "description": "Narrower, longer, more curved android sacral vertebrae",
+    "vertexCount": 2771,
+    "indexCount": 15174,
+    "bounds": [
+      [
+        -0.059591200000000004,
+        0.8609482,
+        -0.10725375000000001
+      ],
+      [
+        0.0582029,
+        1.0053112,
+        -0.018603599999999998
+      ]
+    ]
+  },
+  {
+    "id": "FJ3426",
+    "name": "Left superficial dorsal vein of penis",
+    "conceptId": "FMA21386",
+    "system": "venous",
+    "category": "genitalia",
+    "homologue": "Left superficial dorsal vein of clitoris",
+    "description": "Left superficial dorsal venous drainage",
+    "vertexCount": 544,
+    "indexCount": 3216,
+    "bounds": [
+      [
+        -0.00506823,
+        0.7929742000000001,
+        0.0023209999999999897
+      ],
+      [
+        0.00506777,
+        0.8698752000000001,
+        0.090282
+      ]
+    ]
+  },
+  {
+    "id": "FJ3496",
+    "name": "Left dorsal artery of penis",
+    "conceptId": "FMA20819",
+    "system": "arterial",
+    "category": "genitalia",
+    "homologue": "Left dorsal artery of clitoris",
+    "description": "Terminal branch of internal pudendal artery",
+    "vertexCount": 753,
+    "indexCount": 3348,
+    "bounds": [
+      [
+        0.0034625800000000003,
+        0.8165812000000001,
+        -0.03374780000000001
+      ],
+      [
+        0.026315500000000002,
+        0.8673172000000001,
+        0.094161
+      ]
+    ]
+  },
+  {
+    "id": "FJ3497",
+    "name": "Left dorsal artery of penis",
+    "conceptId": "FMA20819",
+    "system": "arterial",
+    "category": "genitalia",
+    "homologue": "Left dorsal artery of clitoris (ramus)",
+    "description": "Arterial blood supply to glans and prepuce",
+    "vertexCount": 181,
+    "indexCount": 960,
+    "bounds": [
+      [
+        0.0030819000000000003,
+        0.8111872000000001,
+        0.034575999999999996
+      ],
+      [
+        0.008242570000000001,
+        0.8661132,
+        0.089703
+      ]
+    ]
+  },
+  {
+    "id": "FJ3532",
+    "name": "Left testicular artery",
+    "conceptId": "FMA14760",
+    "system": "arterial",
+    "category": "vasculature",
+    "homologue": "Left ovarian artery (FMA14764)",
+    "description": "Arterial gonadal supply descending from abdominal aorta",
+    "vertexCount": 1376,
+    "indexCount": 8196,
+    "bounds": [
+      [
+        0.007519860000000001,
+        0.7675132000000001,
+        -0.015108999999999997
+      ],
+      [
+        0.0698483,
+        1.1031012,
+        0.049126
+      ]
+    ]
+  },
+  {
+    "id": "FJ3533",
+    "name": "Left testicular vein",
+    "conceptId": "FMA14345",
+    "system": "venous",
+    "category": "vasculature",
+    "homologue": "Left ovarian vein (FMA14347)",
+    "description": "Pampiniform venous drainage terminating in left renal vein",
+    "vertexCount": 1609,
+    "indexCount": 9558,
+    "bounds": [
+      [
+        0.013290100000000001,
+        0.7677962,
+        -0.0148475
+      ],
+      [
+        0.0725428,
+        1.1142112,
+        0.049340999999999996
+      ]
+    ]
+  },
+  {
+    "id": "FJ3592",
+    "name": "Right dorsal artery of penis",
+    "conceptId": "FMA20818",
+    "system": "arterial",
+    "category": "genitalia",
+    "homologue": "Right dorsal artery of clitoris",
+    "description": "Terminal branch of internal pudendal artery",
+    "vertexCount": 722,
+    "indexCount": 3366,
+    "bounds": [
+      [
+        -0.0263142,
+        0.8165682000000001,
+        -0.033752000000000004
+      ],
+      [
+        -0.00311594,
+        0.8674092000000001,
+        0.093941
+      ]
+    ]
+  },
+  {
+    "id": "FJ3593",
+    "name": "Right dorsal artery of penis",
+    "conceptId": "FMA20818",
+    "system": "arterial",
+    "category": "genitalia",
+    "homologue": "Right dorsal artery of clitoris (ramus)",
+    "description": "Arterial blood supply to glans and prepuce",
+    "vertexCount": 183,
+    "indexCount": 1014,
+    "bounds": [
+      [
+        -0.00830149,
+        0.8115122,
+        0.034526
+      ],
+      [
+        -0.00303463,
+        0.8658912000000001,
+        0.08943500000000001
+      ]
+    ]
+  },
+  {
+    "id": "FJ3617",
+    "name": "Right testicular artery",
+    "conceptId": "FMA14759",
+    "system": "arterial",
+    "category": "vasculature",
+    "homologue": "Right ovarian artery (FMA14763)",
+    "description": "Arterial gonadal supply descending from abdominal aorta",
+    "vertexCount": 1439,
+    "indexCount": 8538,
+    "bounds": [
+      [
+        -0.06756329999999999,
+        0.7675292,
+        -0.02001370000000001
+      ],
+      [
+        0.00574435,
+        1.1049711999999998,
+        0.04932599999999998
+      ]
+    ]
+  },
+  {
+    "id": "FJ3618",
+    "name": "Right testicular vein",
+    "conceptId": "FMA14341",
+    "system": "venous",
+    "category": "vasculature",
+    "homologue": "Right ovarian vein (FMA14343)",
+    "description": "Pampiniform venous drainage terminating in IVC",
+    "vertexCount": 1556,
+    "indexCount": 9000,
+    "bounds": [
+      [
+        -0.0696753,
+        0.7675072000000001,
+        -0.020668800000000015
+      ],
+      [
+        -0.0118367,
+        1.1002611999999998,
+        0.049532999999999994
+      ]
+    ]
+  },
+  {
+    "id": "FJ3637",
+    "name": "Right superficial dorsal vein of penis",
+    "conceptId": "FMA21385",
+    "system": "venous",
+    "category": "genitalia",
+    "homologue": "Right superficial dorsal vein of clitoris",
+    "description": "Right superficial dorsal venous drainage",
+    "vertexCount": 308,
+    "indexCount": 1836,
+    "bounds": [
+      [
+        -0.0009092810000000001,
+        0.7927922000000001,
+        0.042394000000000015
+      ],
+      [
+        0.000905208,
+        0.8698982000000001,
+        0.09526599999999999
+      ]
+    ]
+  }
+]
