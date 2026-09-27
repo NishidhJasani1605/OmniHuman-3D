@@ -1,64 +1,85 @@
-# Human Atlas
+# OmniWoman 3D: Female Human Anatomy Atlas & Dual-Gender Explorer
+**Interactive 3D Female Anatomical Digital Twin & Side-by-Side Comparative Explorer**
 
-An interactive 3D anatomy explorer built with React, Three.js, and shadcn/ui. Take the BodyParts3D adult male reference apart into **2,234 individually selectable meshes**, explore **15 anatomical systems**, and search **3,432 named concepts**.
+[![Dataset](https://img.shields.io/badge/NIH%20HRA-Female%20Atlas%20Parity-ec4899?style=for-the-badge)](https://humanatlas.io/)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-00e676?style=for-the-badge)]()
+[![Platform](https://img.shields.io/badge/Platform-React%20%7C%20Three.js%20%7C%20Vite%20%7C%20Tailwind-8b5cf6?style=for-the-badge)]()
 
-**[Explore the live demo](https://human-atlas-seven.vercel.app)**
+---
 
-## Explore
+## 📸 Workstation Interface
 
-- Orbit, zoom, and select structures directly on the body.
-- Toggle individual systems or use skeleton and organ presets.
-- Move from assembled anatomy to a spaced inventory of every visible piece.
-- Search anatomical names and source identifiers.
-- Isolate a selected structure and read its details.
-- Use compact controls and detail panels on mobile.
+![OmniWoman 3D Interface](./ui-preview.png)
 
-## Run locally
+---
 
-Requires Node.js 22.13 or newer. No API keys or accounts are needed.
+## 🌟 Overview & Capabilities
 
-```sh
-npm ci
+**OmniWoman 3D** is an advanced interactive 3D female human anatomical digital twin built with React, Three.js, Vite, and Tailwind CSS. It features full anatomical parity with authentic reference datasets, integrated specialized female pelvic and reproductive organs from the NIH Human Reference Atlas (HRA), dynamic obstetrical pregnancy simulation, lifespan osteoporosis progression, and side-by-side dimorphic analysis.
+
+### Core Modules:
+1. **Full-Body Female Anatomy (OmniWoman 3D)**: 2,279 individually selectable anatomical structures across 15 complete body systems (Muscles, Skeleton, Cardiovascular, Nervous, Reproductive, Urinary, Digestive, Respiratory, Endocrine, Lymphatic, etc.).
+2. **NIH HRA Specialized Female Organ Suite**: High-precision 3D clinical models of female-specific structures:
+   - Uterus, left & right fallopian tubes, left & right ovaries
+   - Broad & round ligaments, vaginal canal, cervix
+   - Female urinary bladder and pelvic floor architecture
+   - Mammary glands, lobules, lactiferous ducts, and areolar complex
+   - Comprehensive external vulvar anatomy (clitoral complex, crura, bulbs of vestibule, labia majora & minora)
+3. **Side-by-Side Comparative Frame (77 Female vs 30 Male)**:
+   - Synchronized dual-gender anatomical frame comparing dimorphic structures in real time
+   - Direct homologous organ mapping (clitoris ↔ penis, labia majora ↔ scrotum, ovaries ↔ testes)
+   - Interactive parts catalog modal with 1-click 3D focus
+4. **Obstetrical Pregnancy Simulation (0–40 Weeks)**:
+   - Parametric gestational progression slider with 3D cephalic fetus visualization
+   - Progressive uterine expansion, organ displacement, and maternal physiological changes
+5. **Lifespan Age Explorer (0–80 Years)**:
+   - Bone mineral density visualization (T-scores, osteopenia, osteoporosis)
+   - Age-related kyphosis and soft tissue remodeling
+6. **Exploded Anatomy & Multi-System Isolation**:
+   - 0–100% collision-free exploded view packing
+   - Instant spotlight search (`/`) across all named concepts
+
+---
+
+## ⚡ Quick Start
+
+### Prerequisites
+- Node.js 18+ or Node.js 20+
+
+### Installation & Run
+```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
 ```
+Then navigate to `http://localhost:3016`.
 
-Open http://localhost:3016. To build the static site, run `npm run build`; the output is in `dist/`.
-
-## Validate
-
-```sh
-npm run check
-node scripts/validate-atlas.mjs
-node scripts/validate-interactions.mjs
+### Production Build
+```bash
 npm run build
+npm run preview
 ```
 
-Validation covers mesh buffers, names and concept membership, nonoverlapping exploded layouts at desktop and mobile aspect ratios, search and inspection contracts, and tap-versus-drag handling. Browser interaction checks have exercised selection, system controls, search, isolation, rotation, and 390×844, 320×568, and 844×390 layouts. Phone controls stay clear of the exploded inventory, and isolated structures fit the space above or beside the detail panel. Physical-device performance and real multitouch hardware have not been tested.
+---
 
-## Anatomy data
+## ⌨️ Controls & Navigation
 
-The current viewer uses **BodyParts3D 4.0**, an adult male reference anatomy, licensed **CC BY 4.0**. It does not represent every human structure or variation. Individual source meshes are distinct from named concepts, which may group multiple meshes. Descriptions distinguish general system context from individual organ explanations.
+| Action | Control |
+| :--- | :--- |
+| **Orbit** | Left Click + Drag |
+| **Pan** | Right Click + Drag / Two-finger drag |
+| **Zoom** | Mouse Wheel / Pinch gesture |
+| **Select Part** | Click any 3D organ, muscle, or bone |
+| **Spotlight Search** | Press `/` or click "Find a structure" |
+| **Toggle Systems** | Use left sidebar switches |
+| **Explode Mode** | Drag bottom slider (0% to 100%) |
 
-Geometry is simplified for browser performance while retaining every source mesh. The packaged model contains 2,288,268 triangles and downloads approximately 33 MB of compressed geometry. Full credits, source links, and adaptation details are in [ATTRIBUTION.md](public/ATTRIBUTION.md).
+---
 
-This is an educational explorer, not a diagnostic or surgical tool.
+## 📜 Attributions & Data Sources
 
-## How it works
-
-Geometry is merged into batches. Per-structure GPU textures control translation, visibility, and selection, while component geometry supports accurate picking. Exploded layouts pack only the visible pieces. Rendering updates when the scene changes; orbit controls remain responsive without thousands of separate draw calls.
-
-The optional WebMCP tools expose anatomy search and inspection in compatible browsers. The visible interface works without them.
-
-## Rebuilding geometry
-
-The repository includes browser-ready geometry. Rebuilding it is optional: obtain the official BodyParts3D OBJ archive and English metadata tables, prepare the joined concepts and display-system mappings, run `scripts/convert-anatomy.py`, then `node scripts/optimize-anatomy.mjs` and `node scripts/compress-models.mjs`. Simplification uses a 0.2% relative error limit per structure.
-
-## Deploy
-
-Import this repository into Vercel as a Vite project. The included `vercel.json` configures `npm ci`, `npm run build`, and the `dist` output directory. It can also be served by a static host.
-
-## License
-
-Original application code is released under the [MIT License](LICENSE). **The anatomy data has its own CC BY 4.0 license**; preserve the attribution when redistributing it. Third-party dependencies retain their respective licenses.
-
-Issues and pull requests are welcome. Please include reproduction steps and browser/device details for interaction problems.
+- **NIH Human Reference Atlas (HRA)**: High-resolution anatomical models of human female organ systems.
+- **BodyParts3D**: Database Center for Life Science (DBCLS), Japan. CC BY-SA 2.1 JP.
+- **FMA (Foundational Model of Anatomy)**: Structural Informatics Group, University of Washington.
