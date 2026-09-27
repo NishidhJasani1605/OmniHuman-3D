@@ -1,0 +1,2805 @@
+{
+  "version": "BodyParts3D 4.0",
+  "name": "Female-Only Sex-Unique Anatomy (77 Structures)",
+  "sex": "female",
+  "source": "FMA / BodyParts3D Female Parity Catalog",
+  "scope": "female-dimorphic-unique",
+  "parts": [
+    {
+      "id": "HRA_F_58",
+      "name": "Glans clitoridis & prepuce",
+      "conceptId": "FMA20193",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33639428,
+      "normals": 33642896,
+      "indices": 33644632,
+      "vertexCount": 289,
+      "indexCount": 1536,
+      "bounds": [
+        [
+          -0.0055,
+          0.8055000000000001,
+          0.027500000000000004
+        ],
+        [
+          0.0055,
+          0.8185,
+          0.0405
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_59",
+      "name": "Body of clitoris (Corpus clitoridis)",
+      "conceptId": "FMA20192",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33650776,
+      "normals": 33651496,
+      "indices": 33651856,
+      "vertexCount": 60,
+      "indexCount": 252,
+      "bounds": [
+        [
+          -0.006,
+          0.8114164461998206,
+          0.01382752517978979
+        ],
+        [
+          0.006,
+          0.8354311870505254,
+          0.03613368608028704
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_60",
+      "name": "Left crus of clitoris",
+      "conceptId": "FMA20194",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33652864,
+      "normals": 33653584,
+      "indices": 33653944,
+      "vertexCount": 60,
+      "indexCount": 252,
+      "bounds": [
+        [
+          -0.0016436349414672177,
+          0.8058644617767166,
+          -0.00013615172159868634
+        ],
+        [
+          0.024011889658320493,
+          0.8340938038432159,
+          0.020338724394762708
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_61",
+      "name": "Right crus of clitoris",
+      "conceptId": "FMA20195",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33654952,
+      "normals": 33655672,
+      "indices": 33656032,
+      "vertexCount": 60,
+      "indexCount": 252,
+      "bounds": [
+        [
+          -0.024011889658320493,
+          0.8058644617767166,
+          -0.00013615172159868634
+        ],
+        [
+          0.0016436349414672181,
+          0.8340938038432159,
+          0.020338724394762708
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_62",
+      "name": "Left bulb of vestibule",
+      "conceptId": "FMA19985",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33657040,
+      "normals": 33657856,
+      "indices": 33658264,
+      "vertexCount": 68,
+      "indexCount": 288,
+      "bounds": [
+        [
+          0.0027709295943020382,
+          0.7792208858962875,
+          0.0015181636416690594
+        ],
+        [
+          0.0202,
+          0.8164515571691864,
+          0.028004513349663102
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_63",
+      "name": "Right bulb of vestibule",
+      "conceptId": "FMA19985",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33659416,
+      "normals": 33660232,
+      "indices": 33660640,
+      "vertexCount": 68,
+      "indexCount": 288,
+      "bounds": [
+        [
+          -0.0202,
+          0.7792208858962875,
+          0.0015181636416690594
+        ],
+        [
+          -0.0027709295943020382,
+          0.8164515571691864,
+          0.028004513349663102
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_64",
+      "name": "Left greater vestibular gland (Bartholin)",
+      "conceptId": "FMA19987",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33661792,
+      "normals": 33664492,
+      "indices": 33665844,
+      "vertexCount": 225,
+      "indexCount": 1176,
+      "bounds": [
+        [
+          0.009,
+          0.771,
+          0.0021002883512727046
+        ],
+        [
+          0.017,
+          0.781,
+          0.009899711648727294
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_65",
+      "name": "Right greater vestibular gland (Bartholin)",
+      "conceptId": "FMA19987",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33670548,
+      "normals": 33673248,
+      "indices": 33674600,
+      "vertexCount": 225,
+      "indexCount": 1176,
+      "bounds": [
+        [
+          -0.017,
+          0.771,
+          0.0021002883512727046
+        ],
+        [
+          -0.009,
+          0.781,
+          0.009899711648727294
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_66",
+      "name": "Left labium minus",
+      "conceptId": "FMA20189",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33679304,
+      "normals": 33680024,
+      "indices": 33680384,
+      "vertexCount": 60,
+      "indexCount": 252,
+      "bounds": [
+        [
+          0.0008085273132063832,
+          0.7711626792647281,
+          0.0033126382995868862
+        ],
+        [
+          0.009194409139627617,
+          0.8176426614346336,
+          0.03577948279932647
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_67",
+      "name": "Right labium minus",
+      "conceptId": "FMA20189",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33681392,
+      "normals": 33682112,
+      "indices": 33682472,
+      "vertexCount": 60,
+      "indexCount": 252,
+      "bounds": [
+        [
+          -0.009194409139627617,
+          0.7711626792647281,
+          0.0033126382995868862
+        ],
+        [
+          -0.0008085273132063834,
+          0.8176426614346336,
+          0.03577948279932647
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_68",
+      "name": "Left labium majus",
+      "conceptId": "FMA20188",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33683480,
+      "normals": 33684296,
+      "indices": 33684704,
+      "vertexCount": 68,
+      "indexCount": 288,
+      "bounds": [
+        [
+          -0.0009740768836443252,
+          0.7642421676610163,
+          0.003112326471975879
+        ],
+        [
+          0.0214414507976671,
+          0.8260790937499619,
+          0.0439022119784609
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_69",
+      "name": "Right labium majus",
+      "conceptId": "FMA20188",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33685856,
+      "normals": 33686672,
+      "indices": 33687080,
+      "vertexCount": 68,
+      "indexCount": 288,
+      "bounds": [
+        [
+          -0.0214414507976671,
+          0.7642421676610163,
+          0.003112326471975879
+        ],
+        [
+          0.0009740768836443254,
+          0.8260790937499619,
+          0.0439022119784609
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_71",
+      "name": "Vaginal vestibule (Fossa navicularis & vestibular cleft)",
+      "conceptId": "FMA20187",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33691672,
+      "normals": 33696004,
+      "indices": 33698172,
+      "vertexCount": 361,
+      "indexCount": 1944,
+      "bounds": [
+        [
+          -0.006,
+          0.774,
+          0.010121537975902333
+        ],
+        [
+          0.006,
+          0.81,
+          0.025878462024097663
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_72",
+      "name": "Hymen & vaginal introitus (Ostium vaginae)",
+      "conceptId": "FMA20190",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33705948,
+      "normals": 33708000,
+      "indices": 33709028,
+      "vertexCount": 171,
+      "indexCount": 864,
+      "bounds": [
+        [
+          -0.0112,
+          0.7729397686722878,
+          0.0086
+        ],
+        [
+          0.0112,
+          0.7910602313277123,
+          0.0154
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_74",
+      "name": "Left paraurethral gland (Skene)",
+      "conceptId": "FMA19988",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33713968,
+      "normals": 33715996,
+      "indices": 33717012,
+      "vertexCount": 169,
+      "indexCount": 864,
+      "bounds": [
+        [
+          0.0025999999999999994,
+          0.7985000000000001,
+          0.021500000000000002
+        ],
+        [
+          0.006999999999999999,
+          0.8055,
+          0.0265
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_75",
+      "name": "Right paraurethral gland (Skene)",
+      "conceptId": "FMA19988",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "vulva",
+      "chunk": 15,
+      "positions": 33720468,
+      "normals": 33722496,
+      "indices": 33723512,
+      "vertexCount": 169,
+      "indexCount": 864,
+      "bounds": [
+        [
+          -0.006999999999999999,
+          0.7985000000000001,
+          0.021500000000000002
+        ],
+        [
+          -0.0025999999999999994,
+          0.8055,
+          0.0265
+        ]
+      ],
+      "sex": "female",
+      "category": "vulva"
+    },
+    {
+      "id": "HRA_F_21",
+      "name": "Cervicovaginal junction",
+      "conceptId": "FMA17581",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 2719800,
+      "normals": 2743224,
+      "indices": 2754936,
+      "vertexCount": 1952,
+      "indexCount": 11298,
+      "bounds": [
+        [
+          -0.017939855694770815,
+          0.8424023675359785,
+          -0.055388029813766476
+        ],
+        [
+          0.020320926442742346,
+          0.8656830789148807,
+          -0.030058171749114987
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_22",
+      "name": "Abdominal ostium of uterine tube",
+      "conceptId": "FMA18262",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 2800128,
+      "normals": 2803884,
+      "indices": 2805764,
+      "vertexCount": 313,
+      "indexCount": 1638,
+      "bounds": [
+        [
+          -0.026245043963193895,
+          0.8794667610526085,
+          -0.007106017470359799
+        ],
+        [
+          0.026242566876113413,
+          0.8831198291480541,
+          -0.0048769006133079496
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_23",
+      "name": "Body of uterus",
+      "conceptId": "FMA17577",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 2812316,
+      "normals": 2846192,
+      "indices": 2863132,
+      "vertexCount": 2823,
+      "indexCount": 16032,
+      "bounds": [
+        [
+          -0.0206830812394619,
+          0.8614620679616928,
+          -0.030696865320205685
+        ],
+        [
+          0.022435680612921713,
+          0.8915275187790394,
+          -0.0030464345216751065
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_24",
+      "name": "Fundus of uterus",
+      "conceptId": "FMA17578",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 2927260,
+      "normals": 2946940,
+      "indices": 2956780,
+      "vertexCount": 1640,
+      "indexCount": 9186,
+      "bounds": [
+        [
+          -0.01987022662162781,
+          0.8720986732840538,
+          -0.014555204808712002
+        ],
+        [
+          0.021537347346544264,
+          0.893211972117424,
+          0.007503377124667171
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_26",
+      "name": "Lower uterine segment",
+      "conceptId": "FMA17579",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 3008088,
+      "normals": 3017592,
+      "indices": 3022344,
+      "vertexCount": 792,
+      "indexCount": 4224,
+      "bounds": [
+        [
+          -0.0073893492817878725,
+          0.857684917896986,
+          -0.03643371552228927
+        ],
+        [
+          0.010642176609486341,
+          0.878033902645111,
+          -0.021860808283090588
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_27",
+      "name": "Posterior wall of uterus",
+      "conceptId": "FMA17584",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 3039240,
+      "normals": 3117336,
+      "indices": 3156384,
+      "vertexCount": 6508,
+      "indexCount": 36066,
+      "bounds": [
+        [
+          -0.020515350043773653,
+          0.8613982108980417,
+          -0.02636665120720863
+        ],
+        [
+          0.022344166062772272,
+          0.8873266206681728,
+          0.007314758226275447
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_28",
+      "name": "Anterior wall of uterus",
+      "conceptId": "FMA17583",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 3300648,
+      "normals": 3367656,
+      "indices": 3401160,
+      "vertexCount": 5584,
+      "indexCount": 30444,
+      "bounds": [
+        [
+          -0.020515350043773653,
+          0.8684142680466175,
+          -0.030701253712177273
+        ],
+        [
+          0.022344166062772272,
+          0.8929669933021068,
+          0.005273265615105632
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_29",
+      "name": "Cervix",
+      "conceptId": "FMA17581",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 3522936,
+      "normals": 3544836,
+      "indices": 3555788,
+      "vertexCount": 1825,
+      "indexCount": 10524,
+      "bounds": [
+        [
+          -0.01110305206477642,
+          0.8462188454903662,
+          -0.05119216829538345
+        ],
+        [
+          0.016192623063921927,
+          0.8751530276238918,
+          -0.026909291893243786
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_30",
+      "name": "Internal cervical os",
+      "conceptId": "FMA17585",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 3597884,
+      "normals": 3599504,
+      "indices": 3600316,
+      "vertexCount": 135,
+      "indexCount": 648,
+      "bounds": [
+        [
+          0.0009749612063169478,
+          0.8631526456773281,
+          -0.03461788237094879
+        ],
+        [
+          0.004427426144480705,
+          0.8669314181059599,
+          -0.030372124314308163
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_31",
+      "name": "External cervical os",
+      "conceptId": "FMA17586",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 3602908,
+      "normals": 3604852,
+      "indices": 3605824,
+      "vertexCount": 162,
+      "indexCount": 810,
+      "bounds": [
+        [
+          -0.0007222875729203226,
+          0.8530490679293871,
+          -0.0491342881321907
+        ],
+        [
+          0.006642932653427124,
+          0.8601073735952377,
+          -0.04332885533571243
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_34",
+      "name": "Uterine tube infundibulum (Left)",
+      "conceptId": "FMA18263",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 3626652,
+      "normals": 3639828,
+      "indices": 3646416,
+      "vertexCount": 1098,
+      "indexCount": 6348,
+      "bounds": [
+        [
+          0.04747768124938011,
+          0.9141426050662994,
+          -0.016673315465450284
+        ],
+        [
+          0.05593968933820724,
+          0.9251848199963569,
+          -0.009074170291423794
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_35",
+      "name": "Fibria of uterine tube (Left)",
+      "conceptId": "FMA18264",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 3671808,
+      "normals": 3689280,
+      "indices": 3698016,
+      "vertexCount": 1456,
+      "indexCount": 8613,
+      "bounds": [
+        [
+          0.046465449094772335,
+          0.9110081830620765,
+          -0.0170339198410511
+        ],
+        [
+          0.05385121709108352,
+          0.9162086063623428,
+          -0.008786887079477307
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_37",
+      "name": "Ampulla of uterine tube (Left)",
+      "conceptId": "FMA18265",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 3772476,
+      "normals": 3841500,
+      "indices": 3876012,
+      "vertexCount": 5752,
+      "indexCount": 34272,
+      "bounds": [
+        [
+          0.03276433429121971,
+          0.8828430549800396,
+          -0.013626404255628582
+        ],
+        [
+          0.06168828538060188,
+          0.9253590369224548,
+          0.0015158092975616488
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_38",
+      "name": "Ampulla of uterine tube (Right)",
+      "conceptId": "FMA18265",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 4013100,
+      "normals": 4076220,
+      "indices": 4107780,
+      "vertexCount": 5260,
+      "indexCount": 31320,
+      "bounds": [
+        [
+          -0.06273370975255967,
+          0.8827505671977997,
+          -0.016969639956951138
+        ],
+        [
+          -0.03622654074430466,
+          0.9244962671399116,
+          -0.0021078662574291196
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_40",
+      "name": "Fibria of uterine tube (Right)",
+      "conceptId": "FMA18264",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 4267380,
+      "normals": 4288800,
+      "indices": 4299512,
+      "vertexCount": 1785,
+      "indexCount": 10590,
+      "bounds": [
+        [
+          -0.060753002703189854,
+          0.9109488689899444,
+          -0.022501219213008877
+        ],
+        [
+          -0.05373498791456223,
+          0.9153421410918235,
+          -0.016715545356273648
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_41",
+      "name": "Uterine tube infundibulum (Right)",
+      "conceptId": "FMA18263",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 4341872,
+      "normals": 4355552,
+      "indices": 4362392,
+      "vertexCount": 1140,
+      "indexCount": 6600,
+      "bounds": [
+        [
+          -0.06147859984636307,
+          0.9134265521168708,
+          -0.022979620993137356
+        ],
+        [
+          -0.053899139106273655,
+          0.9244126865267753,
+          -0.015866317003965374
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_70",
+      "name": "Vaginal canal (Colpos / Anterior & posterior columns)",
+      "conceptId": "FMA19949",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "uterus",
+      "chunk": 15,
+      "positions": 33688232,
+      "normals": 33689372,
+      "indices": 33689944,
+      "vertexCount": 95,
+      "indexCount": 432,
+      "bounds": [
+        [
+          -0.01589189027399135,
+          0.7720362252550926,
+          -0.04469265165516321
+        ],
+        [
+          0.014,
+          0.8500675144894055,
+          0.017927549489814835
+        ]
+      ],
+      "sex": "female",
+      "category": "uterus"
+    },
+    {
+      "id": "HRA_F_32",
+      "name": "Left ovary",
+      "conceptId": "FMA7206",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "ovary",
+      "chunk": 15,
+      "positions": 3609064,
+      "normals": 3611632,
+      "indices": 3612916,
+      "vertexCount": 214,
+      "indexCount": 1272,
+      "bounds": [
+        [
+          0.05771630403399468,
+          0.8889767827093601,
+          -0.0157369227707386
+        ],
+        [
+          0.06999369856715203,
+          0.9129237720370292,
+          -0.005202751755714413
+        ]
+      ],
+      "sex": "female",
+      "category": "ovary"
+    },
+    {
+      "id": "HRA_F_33",
+      "name": "Right ovary",
+      "conceptId": "FMA7206",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "ovary",
+      "chunk": 15,
+      "positions": 3618004,
+      "normals": 3620488,
+      "indices": 3621732,
+      "vertexCount": 207,
+      "indexCount": 1230,
+      "bounds": [
+        [
+          -0.0572170712351799,
+          0.888908919095993,
+          -0.015816573202610013
+        ],
+        [
+          -0.04490738588571548,
+          0.912895810008049,
+          -0.005189053863286969
+        ]
+      ],
+      "sex": "female",
+      "category": "ovary"
+    },
+    {
+      "id": "HRA_F_36",
+      "name": "Isthmus of fallopian tube (Left)",
+      "conceptId": "FMA18266",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "ovary",
+      "chunk": 15,
+      "positions": 3732468,
+      "normals": 3744180,
+      "indices": 3750036,
+      "vertexCount": 976,
+      "indexCount": 5610,
+      "bounds": [
+        [
+          0.023065276503562927,
+          0.8808873558044433,
+          -0.0067814627289772
+        ],
+        [
+          0.03317910625040531,
+          0.8851625809073448,
+          -0.0028545373678207364
+        ]
+      ],
+      "sex": "female",
+      "category": "ovary"
+    },
+    {
+      "id": "HRA_F_39",
+      "name": "Isthmus of fallopian tube (Right)",
+      "conceptId": "FMA18266",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "ovary",
+      "chunk": 15,
+      "positions": 4233060,
+      "normals": 4243140,
+      "indices": 4248180,
+      "vertexCount": 840,
+      "indexCount": 4800,
+      "bounds": [
+        [
+          -0.036846812754869465,
+          0.8798927852511406,
+          -0.0073168949782848325
+        ],
+        [
+          -0.02832168707251549,
+          0.88442785307765,
+          -0.003571584969758984
+        ]
+      ],
+      "sex": "female",
+      "category": "ovary"
+    },
+    {
+      "id": "HRA_F_42",
+      "name": "Mammary adipose tissue (Left)",
+      "conceptId": "FMA71506",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 4388792,
+      "normals": 4786400,
+      "indices": 4985204,
+      "vertexCount": 33134,
+      "indexCount": 199260,
+      "bounds": [
+        [
+          0.021984580712020398,
+          1.1859487557411192,
+          0.05350773653388023
+        ],
+        [
+          0.15014375820159911,
+          1.3678150439262389,
+          0.1590642953515053
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_43",
+      "name": "Areolar tubercles (Left)",
+      "conceptId": "FMA19986",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 5782244,
+      "normals": 5899088,
+      "indices": 5957512,
+      "vertexCount": 9737,
+      "indexCount": 13863,
+      "bounds": [
+        [
+          0.10374994649887084,
+          1.2216381692886351,
+          0.15383530652523042
+        ],
+        [
+          0.12363670095205306,
+          1.2438158953189848,
+          0.16343354678153993
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_44",
+      "name": "Nipple (Left)",
+      "conceptId": "FMA19982",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 6012964,
+      "normals": 6247012,
+      "indices": 6364036,
+      "vertexCount": 19504,
+      "indexCount": 29088,
+      "bounds": [
+        [
+          0.10989318116903304,
+          1.226338412761688,
+          0.15904389566183091
+        ],
+        [
+          0.11948907449245452,
+          1.2368647718429564,
+          0.165363731443882
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_45",
+      "name": "Areola (Left)",
+      "conceptId": "FMA19984",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 6480388,
+      "normals": 7058320,
+      "indices": 7347288,
+      "vertexCount": 48161,
+      "indexCount": 71355,
+      "bounds": [
+        [
+          0.10151045843362808,
+          1.2195939683914183,
+          0.1525710324048996
+        ],
+        [
+          0.12521832510232925,
+          1.24490186214447,
+          0.16363739466667176
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_46",
+      "name": "Mammary glandular lobes (Left)",
+      "conceptId": "FMA71501",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 7632708,
+      "normals": 9451740,
+      "indices": 10361256,
+      "vertexCount": 151586,
+      "indexCount": 227364,
+      "bounds": [
+        [
+          0.06969666182398795,
+          1.1981693172454833,
+          0.09733909426629543
+        ],
+        [
+          0.14071106984615325,
+          1.308919277191162,
+          0.15257963782548906
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_47",
+      "name": "Main lactiferous ducts (Left)",
+      "conceptId": "FMA57991",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 11270712,
+      "normals": 12104916,
+      "indices": 12522020,
+      "vertexCount": 69517,
+      "indexCount": 104265,
+      "bounds": [
+        [
+          0.08029748573303222,
+          1.201153870820999,
+          0.10769256448745727
+        ],
+        [
+          0.13778638913631439,
+          1.3026430869102477,
+          0.1648250544667244
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_48",
+      "name": "Main lactiferous sinuses (Left)",
+      "conceptId": "FMA57993",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 12939080,
+      "normals": 13214144,
+      "indices": 13351676,
+      "vertexCount": 22922,
+      "indexCount": 34368,
+      "bounds": [
+        [
+          0.10196051075458526,
+          1.2266622149944304,
+          0.14988870418071748
+        ],
+        [
+          0.12030473425388336,
+          1.2373619639873503,
+          0.16295121854543687
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_49",
+      "name": "Suspensory ligaments of Cooper (Left)",
+      "conceptId": "FMA71505",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 13489148,
+      "normals": 14551820,
+      "indices": 15083156,
+      "vertexCount": 88556,
+      "indexCount": 132834,
+      "bounds": [
+        [
+          0.07167237325906753,
+          1.1960594916343688,
+          0.11036091542243957
+        ],
+        [
+          0.1400657154560089,
+          1.2701320910453795,
+          0.15758191293478013
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_50",
+      "name": "Mammary adipose tissue (Right)",
+      "conceptId": "FMA71506",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 15614492,
+      "normals": 17853452,
+      "indices": 18972932,
+      "vertexCount": 186580,
+      "indexCount": 1120947,
+      "bounds": [
+        [
+          -0.1501704305410385,
+          1.1885063612461089,
+          0.051881939753890036
+        ],
+        [
+          -0.021861454471945763,
+          1.36851003408432,
+          0.15848996734619142
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_51",
+      "name": "Areolar tubercles (Right)",
+      "conceptId": "FMA19986",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 23456720,
+      "normals": 23573564,
+      "indices": 23631988,
+      "vertexCount": 9737,
+      "indexCount": 13863,
+      "bounds": [
+        [
+          -0.12434171140193939,
+          1.222246434688568,
+          0.15360192453861238
+        ],
+        [
+          -0.10445055365562439,
+          1.2444358432292937,
+          0.16312688088417054
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_52",
+      "name": "Nipple (Right)",
+      "conceptId": "FMA19982",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 23687440,
+      "normals": 23921488,
+      "indices": 24038512,
+      "vertexCount": 19504,
+      "indexCount": 29088,
+      "bounds": [
+        [
+          -0.12018954008817673,
+          1.2269747519493102,
+          0.15873598551750184
+        ],
+        [
+          -0.11058856546878815,
+          1.2375206315517424,
+          0.16507124400138856
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_53",
+      "name": "Areola (Right)",
+      "conceptId": "FMA19984",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 24154864,
+      "normals": 24732796,
+      "indices": 25021764,
+      "vertexCount": 48161,
+      "indexCount": 71355,
+      "bounds": [
+        [
+          -0.1259322464466095,
+          1.2202023530006407,
+          0.15230746811628343
+        ],
+        [
+          -0.10220694541931152,
+          1.2455064022541045,
+          0.16334237402677537
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_54",
+      "name": "Main lactiferous sinuses (Right)",
+      "conceptId": "FMA57993",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 25307184,
+      "normals": 25582068,
+      "indices": 25719512,
+      "vertexCount": 22907,
+      "indexCount": 34347,
+      "bounds": [
+        [
+          -0.12101119756698608,
+          1.2290426456928252,
+          0.1495452175140381
+        ],
+        [
+          -0.10266704112291336,
+          1.2396740877628325,
+          0.16265511757135392
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_55",
+      "name": "Main lactiferous ducts (Right)",
+      "conceptId": "FMA57991",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 25856900,
+      "normals": 26688812,
+      "indices": 27104768,
+      "vertexCount": 69326,
+      "indexCount": 103980,
+      "bounds": [
+        [
+          -0.13856053352355957,
+          1.2031209433078764,
+          0.10707627853751182
+        ],
+        [
+          -0.08103743195533752,
+          1.3043978774547575,
+          0.1645244831442833
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_56",
+      "name": "Mammary glandular lobes (Right)",
+      "conceptId": "FMA71501",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 27520688,
+      "normals": 29339720,
+      "indices": 30249236,
+      "vertexCount": 151586,
+      "indexCount": 227364,
+      "bounds": [
+        [
+          -0.14147600531578064,
+          1.200093593597412,
+          0.09670708014070988
+        ],
+        [
+          -0.07043780386447906,
+          1.3107049131393431,
+          0.1522068033218384
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "HRA_F_57",
+      "name": "Suspensory ligaments of Cooper (Right)",
+      "conceptId": "FMA71505",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "mammary",
+      "chunk": 15,
+      "positions": 31158692,
+      "normals": 32399060,
+      "indices": 33019244,
+      "vertexCount": 103364,
+      "indexCount": 155046,
+      "bounds": [
+        [
+          -0.14064911007881165,
+          1.1982478761672972,
+          0.11032351723313331
+        ],
+        [
+          -0.07269322872161865,
+          1.2718298697471617,
+          0.15692314749956132
+        ]
+      ],
+      "sex": "female",
+      "category": "mammary"
+    },
+    {
+      "id": "FJ2812",
+      "name": "Eyebrows & superciliary arches (FMA54237)",
+      "conceptId": "FMA54237",
+      "system": "muscular",
+      "chunk": 10,
+      "positions": 3722268,
+      "normals": 3888768,
+      "indices": 3972020,
+      "vertexCount": 13875,
+      "indexCount": 18522,
+      "bounds": [
+        [
+          -0.0568484,
+          1.6124412,
+          0.054882000000000014
+        ],
+        [
+          0.0555629,
+          1.6239811999999998,
+          0.08349799999999999
+        ]
+      ],
+      "female_unique": true,
+      "female_category": "facial",
+      "sex": "female",
+      "category": "facial"
+    },
+    {
+      "id": "FJ2814",
+      "name": "Lips & labial vermilion (FMA59816)",
+      "conceptId": "FMA59816",
+      "system": "muscular",
+      "chunk": 11,
+      "positions": 170624,
+      "normals": 194780,
+      "indices": 206860,
+      "vertexCount": 2013,
+      "indexCount": 3402,
+      "bounds": [
+        [
+          -0.0260141,
+          1.5267212,
+          0.07458299999999998
+        ],
+        [
+          0.024785900000000003,
+          1.5432712,
+          0.09235400000000002
+        ]
+      ],
+      "female_unique": true,
+      "female_category": "facial",
+      "sex": "female",
+      "category": "facial"
+    },
+    {
+      "id": "HRA_F_1",
+      "name": "Sacrum",
+      "conceptId": "FMA16202",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 0,
+      "normals": 117432,
+      "indices": 176148,
+      "vertexCount": 9786,
+      "indexCount": 58908,
+      "bounds": [
+        [
+          -0.06332217389345168,
+          0.8838412278890609,
+          -0.14745455622673034
+        ],
+        [
+          0.0640962584912777,
+          0.9828817808628082,
+          -0.04256024599075317
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_2",
+      "name": "Coccyx",
+      "conceptId": "FMA16203",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 411780,
+      "normals": 420144,
+      "indices": 424328,
+      "vertexCount": 697,
+      "indexCount": 4170,
+      "bounds": [
+        [
+          -0.015121262982487678,
+          0.8582205718010664,
+          -0.14331447720527649
+        ],
+        [
+          0.0167860654219985,
+          0.8851690554618835,
+          -0.10532788574695587
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_3",
+      "name": "Pubis spongy bone (Left)",
+      "conceptId": "FMA16595",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 441008,
+      "normals": 455444,
+      "indices": 462664,
+      "vertexCount": 1203,
+      "indexCount": 6936,
+      "bounds": [
+        [
+          -0.0004934375137090677,
+          0.8029350379109382,
+          -0.041784916222095486
+        ],
+        [
+          0.09148981189727784,
+          0.8920601943135261,
+          0.025150060504674915
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_4",
+      "name": "Pubis spongy bone (Right)",
+      "conceptId": "FMA16595",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 490408,
+      "normals": 503992,
+      "indices": 510784,
+      "vertexCount": 1132,
+      "indexCount": 6516,
+      "bounds": [
+        [
+          -0.09231145912408828,
+          0.8011639007925987,
+          -0.04369210839271545
+        ],
+        [
+          -0.0008075456097722047,
+          0.8921613955497741,
+          0.02540662776678801
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_5",
+      "name": "Pubis compact bone (Right)",
+      "conceptId": "FMA16595",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 536848,
+      "normals": 567328,
+      "indices": 582568,
+      "vertexCount": 2540,
+      "indexCount": 15240,
+      "bounds": [
+        [
+          -0.09313989663124084,
+          0.7999051438271999,
+          -0.04394393056631088
+        ],
+        [
+          0.0004049888849258429,
+          0.8928743974864483,
+          0.026619753651320938
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_6",
+      "name": "Pubis compact bone (Left)",
+      "conceptId": "FMA16595",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 643528,
+      "normals": 675784,
+      "indices": 691912,
+      "vertexCount": 2688,
+      "indexCount": 16128,
+      "bounds": [
+        [
+          -0.0016935146376490587,
+          0.8016991803050041,
+          -0.042021308243274685
+        ],
+        [
+          0.09203851735591889,
+          0.8928367944061756,
+          0.02636734008789063
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_7",
+      "name": "Ilium compact bone (Right)",
+      "conceptId": "FMA16591",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 756424,
+      "normals": 827308,
+      "indices": 862752,
+      "vertexCount": 5907,
+      "indexCount": 35430,
+      "bounds": [
+        [
+          -0.15849616611003875,
+          0.8647490648180246,
+          -0.13055026173591613
+        ],
+        [
+          -0.04351111361384392,
+          1.0046584421396254,
+          0.0310593986324966
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_8",
+      "name": "Ilium compact bone (Left)",
+      "conceptId": "FMA16591",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 1004472,
+      "normals": 1080600,
+      "indices": 1118664,
+      "vertexCount": 6344,
+      "indexCount": 38052,
+      "bounds": [
+        [
+          0.039599094077944756,
+          0.8656427284330129,
+          -0.13046127200126648
+        ],
+        [
+          0.15834172582626344,
+          1.0040038192272185,
+          0.0352899217652157
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_9",
+      "name": "Ilium spongy bone (Left)",
+      "conceptId": "FMA16591",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 1270872,
+      "normals": 1307496,
+      "indices": 1325808,
+      "vertexCount": 3052,
+      "indexCount": 18066,
+      "bounds": [
+        [
+          0.04080540081858635,
+          0.8669521567970514,
+          -0.1292341911792755
+        ],
+        [
+          0.1571232578754425,
+          1.0026662611961363,
+          0.034065208481624726
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_10",
+      "name": "Ilium spongy bone (Right)",
+      "conceptId": "FMA16591",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 1398072,
+      "normals": 1432128,
+      "indices": 1449156,
+      "vertexCount": 2838,
+      "indexCount": 16791,
+      "bounds": [
+        [
+          -0.1573097356557846,
+          0.8654762973636388,
+          -0.12933562338352203
+        ],
+        [
+          -0.04471741849184036,
+          1.0033056998252867,
+          0.0298432925157249
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_11",
+      "name": "Ischium compact bone (Right)",
+      "conceptId": "FMA16593",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 1516320,
+      "normals": 1548660,
+      "indices": 1564832,
+      "vertexCount": 2695,
+      "indexCount": 16170,
+      "bounds": [
+        [
+          -0.11849082493782043,
+          0.7931655721366405,
+          -0.09126242637634277
+        ],
+        [
+          -0.037672089874744415,
+          0.8881639467179775,
+          -0.023538168668746945
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_12",
+      "name": "Ischium compact bone (Left)",
+      "conceptId": "FMA16593",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 1629512,
+      "normals": 1661864,
+      "indices": 1678040,
+      "vertexCount": 2696,
+      "indexCount": 16176,
+      "bounds": [
+        [
+          0.035480094611644745,
+          0.7946314813196659,
+          -0.08895896762609481
+        ],
+        [
+          0.11828954285383225,
+          0.8893787191808223,
+          -0.024219177812337872
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_13",
+      "name": "Ischium spongy bone (Right)",
+      "conceptId": "FMA16593",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 1742744,
+      "normals": 1757096,
+      "indices": 1764272,
+      "vertexCount": 1196,
+      "indexCount": 6873,
+      "bounds": [
+        [
+          -0.11735468590259551,
+          0.7945053951442241,
+          -0.09006085634231567
+        ],
+        [
+          -0.03859869250655174,
+          0.887647476196289,
+          -0.02440337479114532
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_14",
+      "name": "Ischium spongy bone (Left)",
+      "conceptId": "FMA16593",
+      "system": "skeletal",
+      "female_unique": true,
+      "female_category": "pelvis",
+      "chunk": 15,
+      "positions": 1791764,
+      "normals": 1806140,
+      "indices": 1813328,
+      "vertexCount": 1198,
+      "indexCount": 6888,
+      "bounds": [
+        [
+          0.03627648903429508,
+          0.7959760391712188,
+          -0.08773278832435608
+        ],
+        [
+          0.11710014706850053,
+          0.8889828959107399,
+          -0.025087952762842175
+        ]
+      ],
+      "sex": "female",
+      "category": "pelvis"
+    },
+    {
+      "id": "HRA_F_15",
+      "name": "Fundus of urinary bladder dome",
+      "conceptId": "FMA15911",
+      "system": "urinary",
+      "female_unique": true,
+      "female_category": "bladder",
+      "chunk": 15,
+      "positions": 1840880,
+      "normals": 1914536,
+      "indices": 1951364,
+      "vertexCount": 6138,
+      "indexCount": 35748,
+      "bounds": [
+        [
+          -0.025540199726819993,
+          0.8478009092248976,
+          -0.018761022984981536
+        ],
+        [
+          0.02643630687147379,
+          0.8662272134423256,
+          0.04241509126499295
+        ]
+      ],
+      "sex": "female",
+      "category": "bladder"
+    },
+    {
+      "id": "HRA_F_16",
+      "name": "Urinary bladder neck smooth muscle",
+      "conceptId": "FMA15914",
+      "system": "urinary",
+      "female_unique": true,
+      "female_category": "bladder",
+      "chunk": 15,
+      "positions": 2094356,
+      "normals": 2105576,
+      "indices": 2111188,
+      "vertexCount": 935,
+      "indexCount": 5370,
+      "bounds": [
+        [
+          -0.0010769503563642507,
+          0.8220060357451439,
+          -0.014937627166509627
+        ],
+        [
+          0.00580401100218296,
+          0.8262437732517719,
+          -0.009243010580539703
+        ]
+      ],
+      "sex": "female",
+      "category": "bladder"
+    },
+    {
+      "id": "HRA_F_17",
+      "name": "Fundus of urinary bladder base",
+      "conceptId": "FMA15911",
+      "system": "urinary",
+      "female_unique": true,
+      "female_category": "bladder",
+      "chunk": 15,
+      "positions": 2132668,
+      "normals": 2289520,
+      "indices": 2367948,
+      "vertexCount": 13071,
+      "indexCount": 76578,
+      "bounds": [
+        [
+          -0.025540199726819993,
+          0.8247776917740702,
+          -0.019284031391143798
+        ],
+        [
+          0.02643630687147379,
+          0.8601498549431562,
+          0.04241509126499295
+        ]
+      ],
+      "sex": "female",
+      "category": "bladder"
+    },
+    {
+      "id": "HRA_F_18",
+      "name": "Trigone of urinary bladder",
+      "conceptId": "FMA15917",
+      "system": "urinary",
+      "female_unique": true,
+      "female_category": "bladder",
+      "chunk": 15,
+      "positions": 2674260,
+      "normals": 2685468,
+      "indices": 2691072,
+      "vertexCount": 934,
+      "indexCount": 5052,
+      "bounds": [
+        [
+          -0.01912303701043129,
+          0.8256708627194166,
+          -0.015649757385253905
+        ],
+        [
+          0.02366294838488102,
+          0.8520253702625632,
+          -0.010865285098552703
+        ]
+      ],
+      "sex": "female",
+      "category": "bladder"
+    },
+    {
+      "id": "HRA_F_73",
+      "name": "Female urethra & external urethral sphincter",
+      "conceptId": "FMA19667",
+      "system": "urinary",
+      "female_unique": true,
+      "female_category": "bladder",
+      "chunk": 15,
+      "positions": 33712484,
+      "normals": 33713024,
+      "indices": 33713296,
+      "vertexCount": 45,
+      "indexCount": 168,
+      "bounds": [
+        [
+          -0.0035,
+          0.7970625834652137,
+          0.018719042128247973
+        ],
+        [
+          0.0035,
+          0.8291981201533904,
+          0.03519498707570809
+        ]
+      ],
+      "sex": "female",
+      "category": "bladder"
+    },
+    {
+      "id": "HRA_F_19",
+      "name": "Ureteral orifice (Right)",
+      "conceptId": "FMA15923",
+      "system": "urinary",
+      "female_unique": true,
+      "female_category": "reproductive",
+      "chunk": 15,
+      "positions": 2711280,
+      "normals": 2712552,
+      "indices": 2713188,
+      "vertexCount": 106,
+      "indexCount": 540,
+      "bounds": [
+        [
+          -0.021559198051691056,
+          0.8496110869199037,
+          -0.01600558966398239
+        ],
+        [
+          -0.018123303204774857,
+          0.8530068585276603,
+          -0.013813934326171874
+        ]
+      ],
+      "sex": "female",
+      "category": "reproductive"
+    },
+    {
+      "id": "HRA_F_20",
+      "name": "Ureteral orifice (Left)",
+      "conceptId": "FMA15923",
+      "system": "urinary",
+      "female_unique": true,
+      "female_category": "reproductive",
+      "chunk": 15,
+      "positions": 2715348,
+      "normals": 2716764,
+      "indices": 2717472,
+      "vertexCount": 118,
+      "indexCount": 582,
+      "bounds": [
+        [
+          0.02318664487451315,
+          0.8484651466459036,
+          -0.012014846354722976
+        ],
+        [
+          0.025536002926528453,
+          0.8518493409827351,
+          -0.009046400934457778
+        ]
+      ],
+      "sex": "female",
+      "category": "reproductive"
+    },
+    {
+      "id": "HRA_F_25",
+      "name": "Cornua",
+      "conceptId": "FMA17580",
+      "system": "reproductive",
+      "female_unique": true,
+      "female_category": "reproductive",
+      "chunk": 15,
+      "positions": 2993524,
+      "normals": 2997952,
+      "indices": 3000168,
+      "vertexCount": 369,
+      "indexCount": 1980,
+      "bounds": [
+        [
+          -0.02624319249391556,
+          0.8770500348508358,
+          -0.010919492840766903
+        ],
+        [
+          0.02622536255419254,
+          0.8863655069470405,
+          -0.0012627394497394528
+        ]
+      ],
+      "sex": "female",
+      "category": "reproductive"
+    }
+  ],
+  "concepts": [
+    {
+      "id": "FMA20193",
+      "name": "Glans clitoridis & prepuce",
+      "elements": [
+        "HRA_F_58"
+      ]
+    },
+    {
+      "id": "FMA20192",
+      "name": "Body of clitoris (Corpus clitoridis)",
+      "elements": [
+        "HRA_F_59"
+      ]
+    },
+    {
+      "id": "FMA20194",
+      "name": "Left crus of clitoris",
+      "elements": [
+        "HRA_F_60"
+      ]
+    },
+    {
+      "id": "FMA20195",
+      "name": "Right crus of clitoris",
+      "elements": [
+        "HRA_F_61"
+      ]
+    },
+    {
+      "id": "FMA19985",
+      "name": "Left bulb of vestibule",
+      "elements": [
+        "HRA_F_62"
+      ]
+    },
+    {
+      "id": "FMA19985",
+      "name": "Right bulb of vestibule",
+      "elements": [
+        "HRA_F_63"
+      ]
+    },
+    {
+      "id": "FMA19987",
+      "name": "Left greater vestibular gland (Bartholin)",
+      "elements": [
+        "HRA_F_64"
+      ]
+    },
+    {
+      "id": "FMA19987",
+      "name": "Right greater vestibular gland (Bartholin)",
+      "elements": [
+        "HRA_F_65"
+      ]
+    },
+    {
+      "id": "FMA20189",
+      "name": "Left labium minus",
+      "elements": [
+        "HRA_F_66"
+      ]
+    },
+    {
+      "id": "FMA20189",
+      "name": "Right labium minus",
+      "elements": [
+        "HRA_F_67"
+      ]
+    },
+    {
+      "id": "FMA20188",
+      "name": "Left labium majus",
+      "elements": [
+        "HRA_F_68"
+      ]
+    },
+    {
+      "id": "FMA20188",
+      "name": "Right labium majus",
+      "elements": [
+        "HRA_F_69"
+      ]
+    },
+    {
+      "id": "FMA20187",
+      "name": "Vaginal vestibule (Fossa navicularis & vestibular cleft)",
+      "elements": [
+        "HRA_F_71"
+      ]
+    },
+    {
+      "id": "FMA20190",
+      "name": "Hymen & vaginal introitus (Ostium vaginae)",
+      "elements": [
+        "HRA_F_72"
+      ]
+    },
+    {
+      "id": "FMA19988",
+      "name": "Left paraurethral gland (Skene)",
+      "elements": [
+        "HRA_F_74"
+      ]
+    },
+    {
+      "id": "FMA19988",
+      "name": "Right paraurethral gland (Skene)",
+      "elements": [
+        "HRA_F_75"
+      ]
+    },
+    {
+      "id": "FMA17581",
+      "name": "Cervicovaginal junction",
+      "elements": [
+        "HRA_F_21"
+      ]
+    },
+    {
+      "id": "FMA18262",
+      "name": "Abdominal ostium of uterine tube",
+      "elements": [
+        "HRA_F_22"
+      ]
+    },
+    {
+      "id": "FMA17577",
+      "name": "Body of uterus",
+      "elements": [
+        "HRA_F_23"
+      ]
+    },
+    {
+      "id": "FMA17578",
+      "name": "Fundus of uterus",
+      "elements": [
+        "HRA_F_24"
+      ]
+    },
+    {
+      "id": "FMA17579",
+      "name": "Lower uterine segment",
+      "elements": [
+        "HRA_F_26"
+      ]
+    },
+    {
+      "id": "FMA17584",
+      "name": "Posterior wall of uterus",
+      "elements": [
+        "HRA_F_27"
+      ]
+    },
+    {
+      "id": "FMA17583",
+      "name": "Anterior wall of uterus",
+      "elements": [
+        "HRA_F_28"
+      ]
+    },
+    {
+      "id": "FMA17581",
+      "name": "Cervix",
+      "elements": [
+        "HRA_F_29"
+      ]
+    },
+    {
+      "id": "FMA17585",
+      "name": "Internal cervical os",
+      "elements": [
+        "HRA_F_30"
+      ]
+    },
+    {
+      "id": "FMA17586",
+      "name": "External cervical os",
+      "elements": [
+        "HRA_F_31"
+      ]
+    },
+    {
+      "id": "FMA18263",
+      "name": "Uterine tube infundibulum (Left)",
+      "elements": [
+        "HRA_F_34"
+      ]
+    },
+    {
+      "id": "FMA18264",
+      "name": "Fibria of uterine tube (Left)",
+      "elements": [
+        "HRA_F_35"
+      ]
+    },
+    {
+      "id": "FMA18265",
+      "name": "Ampulla of uterine tube (Left)",
+      "elements": [
+        "HRA_F_37"
+      ]
+    },
+    {
+      "id": "FMA18265",
+      "name": "Ampulla of uterine tube (Right)",
+      "elements": [
+        "HRA_F_38"
+      ]
+    },
+    {
+      "id": "FMA18264",
+      "name": "Fibria of uterine tube (Right)",
+      "elements": [
+        "HRA_F_40"
+      ]
+    },
+    {
+      "id": "FMA18263",
+      "name": "Uterine tube infundibulum (Right)",
+      "elements": [
+        "HRA_F_41"
+      ]
+    },
+    {
+      "id": "FMA19949",
+      "name": "Vaginal canal (Colpos / Anterior & posterior columns)",
+      "elements": [
+        "HRA_F_70"
+      ]
+    },
+    {
+      "id": "FMA7206",
+      "name": "Left ovary",
+      "elements": [
+        "HRA_F_32"
+      ]
+    },
+    {
+      "id": "FMA7206",
+      "name": "Right ovary",
+      "elements": [
+        "HRA_F_33"
+      ]
+    },
+    {
+      "id": "FMA18266",
+      "name": "Isthmus of fallopian tube (Left)",
+      "elements": [
+        "HRA_F_36"
+      ]
+    },
+    {
+      "id": "FMA18266",
+      "name": "Isthmus of fallopian tube (Right)",
+      "elements": [
+        "HRA_F_39"
+      ]
+    },
+    {
+      "id": "FMA71506",
+      "name": "Mammary adipose tissue (Left)",
+      "elements": [
+        "HRA_F_42"
+      ]
+    },
+    {
+      "id": "FMA19986",
+      "name": "Areolar tubercles (Left)",
+      "elements": [
+        "HRA_F_43"
+      ]
+    },
+    {
+      "id": "FMA19982",
+      "name": "Nipple (Left)",
+      "elements": [
+        "HRA_F_44"
+      ]
+    },
+    {
+      "id": "FMA19984",
+      "name": "Areola (Left)",
+      "elements": [
+        "HRA_F_45"
+      ]
+    },
+    {
+      "id": "FMA71501",
+      "name": "Mammary glandular lobes (Left)",
+      "elements": [
+        "HRA_F_46"
+      ]
+    },
+    {
+      "id": "FMA57991",
+      "name": "Main lactiferous ducts (Left)",
+      "elements": [
+        "HRA_F_47"
+      ]
+    },
+    {
+      "id": "FMA57993",
+      "name": "Main lactiferous sinuses (Left)",
+      "elements": [
+        "HRA_F_48"
+      ]
+    },
+    {
+      "id": "FMA71505",
+      "name": "Suspensory ligaments of Cooper (Left)",
+      "elements": [
+        "HRA_F_49"
+      ]
+    },
+    {
+      "id": "FMA71506",
+      "name": "Mammary adipose tissue (Right)",
+      "elements": [
+        "HRA_F_50"
+      ]
+    },
+    {
+      "id": "FMA19986",
+      "name": "Areolar tubercles (Right)",
+      "elements": [
+        "HRA_F_51"
+      ]
+    },
+    {
+      "id": "FMA19982",
+      "name": "Nipple (Right)",
+      "elements": [
+        "HRA_F_52"
+      ]
+    },
+    {
+      "id": "FMA19984",
+      "name": "Areola (Right)",
+      "elements": [
+        "HRA_F_53"
+      ]
+    },
+    {
+      "id": "FMA57993",
+      "name": "Main lactiferous sinuses (Right)",
+      "elements": [
+        "HRA_F_54"
+      ]
+    },
+    {
+      "id": "FMA57991",
+      "name": "Main lactiferous ducts (Right)",
+      "elements": [
+        "HRA_F_55"
+      ]
+    },
+    {
+      "id": "FMA71501",
+      "name": "Mammary glandular lobes (Right)",
+      "elements": [
+        "HRA_F_56"
+      ]
+    },
+    {
+      "id": "FMA71505",
+      "name": "Suspensory ligaments of Cooper (Right)",
+      "elements": [
+        "HRA_F_57"
+      ]
+    },
+    {
+      "id": "FMA54237",
+      "name": "Eyebrows & superciliary arches (FMA54237)",
+      "elements": [
+        "FJ2812"
+      ]
+    },
+    {
+      "id": "FMA59816",
+      "name": "Lips & labial vermilion (FMA59816)",
+      "elements": [
+        "FJ2814"
+      ]
+    },
+    {
+      "id": "FMA16202",
+      "name": "Sacrum",
+      "elements": [
+        "HRA_F_1"
+      ]
+    },
+    {
+      "id": "FMA16203",
+      "name": "Coccyx",
+      "elements": [
+        "HRA_F_2"
+      ]
+    },
+    {
+      "id": "FMA16595",
+      "name": "Pubis spongy bone (Left)",
+      "elements": [
+        "HRA_F_3"
+      ]
+    },
+    {
+      "id": "FMA16595",
+      "name": "Pubis spongy bone (Right)",
+      "elements": [
+        "HRA_F_4"
+      ]
+    },
+    {
+      "id": "FMA16595",
+      "name": "Pubis compact bone (Right)",
+      "elements": [
+        "HRA_F_5"
+      ]
+    },
+    {
+      "id": "FMA16595",
+      "name": "Pubis compact bone (Left)",
+      "elements": [
+        "HRA_F_6"
+      ]
+    },
+    {
+      "id": "FMA16591",
+      "name": "Ilium compact bone (Right)",
+      "elements": [
+        "HRA_F_7"
+      ]
+    },
+    {
+      "id": "FMA16591",
+      "name": "Ilium compact bone (Left)",
+      "elements": [
+        "HRA_F_8"
+      ]
+    },
+    {
+      "id": "FMA16591",
+      "name": "Ilium spongy bone (Left)",
+      "elements": [
+        "HRA_F_9"
+      ]
+    },
+    {
+      "id": "FMA16591",
+      "name": "Ilium spongy bone (Right)",
+      "elements": [
+        "HRA_F_10"
+      ]
+    },
+    {
+      "id": "FMA16593",
+      "name": "Ischium compact bone (Right)",
+      "elements": [
+        "HRA_F_11"
+      ]
+    },
+    {
+      "id": "FMA16593",
+      "name": "Ischium compact bone (Left)",
+      "elements": [
+        "HRA_F_12"
+      ]
+    },
+    {
+      "id": "FMA16593",
+      "name": "Ischium spongy bone (Right)",
+      "elements": [
+        "HRA_F_13"
+      ]
+    },
+    {
+      "id": "FMA16593",
+      "name": "Ischium spongy bone (Left)",
+      "elements": [
+        "HRA_F_14"
+      ]
+    },
+    {
+      "id": "FMA15911",
+      "name": "Fundus of urinary bladder dome",
+      "elements": [
+        "HRA_F_15"
+      ]
+    },
+    {
+      "id": "FMA15914",
+      "name": "Urinary bladder neck smooth muscle",
+      "elements": [
+        "HRA_F_16"
+      ]
+    },
+    {
+      "id": "FMA15911",
+      "name": "Fundus of urinary bladder base",
+      "elements": [
+        "HRA_F_17"
+      ]
+    },
+    {
+      "id": "FMA15917",
+      "name": "Trigone of urinary bladder",
+      "elements": [
+        "HRA_F_18"
+      ]
+    },
+    {
+      "id": "FMA19667",
+      "name": "Female urethra & external urethral sphincter",
+      "elements": [
+        "HRA_F_73"
+      ]
+    },
+    {
+      "id": "FMA15923",
+      "name": "Ureteral orifice (Right)",
+      "elements": [
+        "HRA_F_19"
+      ]
+    },
+    {
+      "id": "FMA15923",
+      "name": "Ureteral orifice (Left)",
+      "elements": [
+        "HRA_F_20"
+      ]
+    },
+    {
+      "id": "FMA17580",
+      "name": "Cornua",
+      "elements": [
+        "HRA_F_25"
+      ]
+    }
+  ],
+  "chunks": [
+    {
+      "url": "/models/body-0.bin",
+      "bytes": 4019496,
+      "gzip": "/models/body-0.bin.gz",
+      "gzipBytes": 2283403
+    },
+    {
+      "url": "/models/body-1.bin",
+      "bytes": 4526484,
+      "gzip": "/models/body-1.bin.gz",
+      "gzipBytes": 2352031
+    },
+    {
+      "url": "/models/body-2.bin",
+      "bytes": 4438056,
+      "gzip": "/models/body-2.bin.gz",
+      "gzipBytes": 2385721
+    },
+    {
+      "url": "/models/body-3.bin",
+      "bytes": 4041436,
+      "gzip": "/models/body-3.bin.gz",
+      "gzipBytes": 2136521
+    },
+    {
+      "url": "/models/body-4.bin",
+      "bytes": 4020544,
+      "gzip": "/models/body-4.bin.gz",
+      "gzipBytes": 2141029
+    },
+    {
+      "url": "/models/body-5.bin",
+      "bytes": 4022564,
+      "gzip": "/models/body-5.bin.gz",
+      "gzipBytes": 2190065
+    },
+    {
+      "url": "/models/body-6.bin",
+      "bytes": 4035584,
+      "gzip": "/models/body-6.bin.gz",
+      "gzipBytes": 2398490
+    },
+    {
+      "url": "/models/body-7.bin",
+      "bytes": 4006940,
+      "gzip": "/models/body-7.bin.gz",
+      "gzipBytes": 2399492
+    },
+    {
+      "url": "/models/body-8.bin",
+      "bytes": 4028452,
+      "gzip": "/models/body-8.bin.gz",
+      "gzipBytes": 2394239
+    },
+    {
+      "url": "/models/body-9.bin",
+      "bytes": 4018260,
+      "gzip": "/models/body-9.bin.gz",
+      "gzipBytes": 2287683
+    },
+    {
+      "url": "/models/body-10.bin",
+      "bytes": 4046108,
+      "gzip": "/models/body-10.bin.gz",
+      "gzipBytes": 2294100
+    },
+    {
+      "url": "/models/body-11.bin",
+      "bytes": 4037528,
+      "gzip": "/models/body-11.bin.gz",
+      "gzipBytes": 2341927
+    },
+    {
+      "url": "/models/body-12.bin",
+      "bytes": 4000292,
+      "gzip": "/models/body-12.bin.gz",
+      "gzipBytes": 2301811
+    },
+    {
+      "url": "/models/body-13.bin",
+      "bytes": 4004548,
+      "gzip": "/models/body-13.bin.gz",
+      "gzipBytes": 2208364
+    },
+    {
+      "url": "/models/body-14.bin",
+      "bytes": 2300452,
+      "gzip": "/models/body-14.bin.gz",
+      "gzipBytes": 1351809
+    },
+    {
+      "url": "/models/female-fullbody/extra-15.bin",
+      "bytes": 33726968,
+      "gzip": "/models/female-fullbody/extra-15.bin.gz",
+      "gzipBytes": 15001155
+    }
+  ],
+  "triangles": 1073822
+}
