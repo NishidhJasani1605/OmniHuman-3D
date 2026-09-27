@@ -1,5 +1,5 @@
 // ==========================================================================
-// OMNI-HUMAN 3D — Gemini Clinical Diagnostic Mind & Pathology Orchestrator
+// OMNI-HUMAN 3D — Clinical Diagnostic Mind & Pathology Orchestrator
 // 1. Disease Simulation Dispatcher (STEMI, Herniation, Pneumothorax, Cirrhosis)
 // 2. Multimodal Clinical AI Decision Support (Pathology, Mechanics, Treatment)
 // 3. Anatomical Dossier & FMA Concept Knowledgebase

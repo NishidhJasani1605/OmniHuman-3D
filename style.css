@@ -653,7 +653,7 @@ body {
     font-weight: 700;
 }
 
-/* Gemini Clinical Diagnostic AI */
+/* Clinical Diagnostic AI */
 .clinical-ai-card {
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-color);

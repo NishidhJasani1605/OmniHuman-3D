@@ -1,7 +1,7 @@
 // ==========================================================================
 // OMNI-HUMAN 3D — Master Conductor & Application Engine
 // Integrates Macro-Anatomy, Physiology, Biomechanics, Hardware Telemetry,
-// Radiology MPR, Cellular World Modeling, and Gemini Clinical Diagnostic AI.
+// Radiology MPR, Cellular World Modeling, and Clinical Diagnostic AI.
 // ==========================================================================
 
 class OmniEngine {

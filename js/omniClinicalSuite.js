@@ -4,7 +4,7 @@
 // Integrates:
 // 1. Bio-Energy Holo-Engine (Cardiac pulsation, arterial waves, neural sparks)
 // 2. Real-Time Lead II ECG Oscilloscope & Hemodynamics
-// 3. Gemini Clinical Diagnostic Mind (Pathology simulations & treatment protocols)
+// 3. Clinical AI Diagnostic Mind (Pathology simulations & treatment protocols)
 // 4. Microscopic Virtual Cell Modal (GenBio AIDO Lab 3D Organelles & CRISPR)
 // 5. Binary 3D Printable STL Exporter for any of the 2,234 anatomical pieces
 // ==========================================================================
@@ -249,7 +249,7 @@
     }
 
     // =========================================================================
-    // 3. GEMINI CLINICAL DIAGNOSTIC MIND (Pathology states)
+    // 3. CLINICAL AI DIAGNOSTIC MIND (Pathology states)
     // =========================================================================
     function setPathology(pathologyKey) {
         currentPathology = pathologyKey;
@@ -2134,7 +2134,7 @@
         clinicalDock.innerHTML = `
             <div class="dock-header">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <span class="dock-title">GEMINI MEDICAL MIND</span>
+                    <span class="dock-title">CLINICAL MEDICAL MIND</span>
                     <span class="dock-conf-badge" id="dock-conf">99.4% OPTIMAL</span>
                 </div>
                 <button class="dock-min-btn" id="btn-collapse-clinical-dock" title="Minimize Clinical Monitor" aria-label="Minimize Clinical Monitor">—</button>
@@ -2169,7 +2169,7 @@
                 <canvas id="ecg-live-canvas" width="300" height="65"></canvas>
             </div>
 
-            <!-- Gemini Clinical Decision -->
+            <!-- Clinical Decision -->
             <div class="ai-diagnosis-card">
                 <div class="ai-card-title" id="diag-title">Pathology: Normal Physiological Equilibrium</div>
                 <div class="ai-card-body" id="diag-body">
@@ -2219,8 +2219,8 @@
         // Floating Restore Clinical Dock Button
         const restoreBtn = document.createElement('button');
         restoreBtn.id = 'btn-restore-clinical-dock';
-        restoreBtn.title = 'Restore Gemini Clinical Monitor';
-        restoreBtn.innerHTML = '<span>🩺</span> Gemini Mind';
+        restoreBtn.title = 'Restore Clinical Monitor';
+        restoreBtn.innerHTML = '<span>🩺</span> Clinical Mind';
         document.body.appendChild(restoreBtn);
 
         const collapseBtn = document.getElementById('btn-collapse-clinical-dock');

@@ -3,14 +3,14 @@ title OMNI-HUMAN 3D — Living Multiscale Digital Twin & Clinical AI Workstation
 cd /d "%~dp0"
 echo ==============================================================================
 echo    OMNI-HUMAN 3D — Living Multiscale Digital Human Twin
-echo    Powered 100%% by Google Gemini & Authentic BodyParts3D 4.0
+echo    Powered by Authentic BodyParts3D 4.0 & Advanced Anatomy Engine
 echo ==============================================================================
 echo.
 echo  * 2,234 Authentic Clinical Meshes Across 15 Complete Organ Systems
 echo  * 3D Multiplanar MRI & CT Scanner with Real-Time Synchronized Laser Slicing
 echo  * Bio-Energy Holo-Engine: Cardiac Ventricular Pulsation & Arterial Waves
 echo  * Real-Time Lead II ECG Canvas Oscilloscope (STEMI Tombstone Elevation)
-echo  * Gemini Clinical Diagnostic Mind with Evidence-Based Treatment Protocols
+echo  * Clinical Diagnostic Mind with Evidence-Based Treatment Protocols
 echo  * Microscopic Virtual Cell Digital Twin with 3D Organelles & CRISPR
 echo  * 1-Click 3D Printable Binary STL Exporter for Any Anatomical Structure
 echo.
