@@ -1,10 +1,13 @@
 import * as T from 'three';
 import type {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
-import {SYSTEM_DEPTH_LAYERS,type Atlas,type Part,type SystemId} from './anatomy';
+import {SYSTEMS,type Atlas,type Part,type SystemId} from './anatomy';
 
 // ── State machine ────────────────────────────────────────────────────
 export type DissectorState =
  |'IDLE'
+ |'FLIGHT_TRANSITION'
+ |'FOCUSED'
+ |'RESTORE_TRANSITION'
  |'ACT_1_ANCHOR'
  |'ACT_2_PEEL'
  |'ACT_3_TRANSECT_ZOOM'
@@ -16,16 +19,15 @@ export interface HudInfo {
  title: string;
 }
 
-// ── Phase Timing (matching OmniHuman-3D) ─────────────────────────────
-const ACT1_DUR = 0.65; // Phase 1: Full-body context + glowing beacon pulse
-const ACT2_DUR = 1.25; // Phase 2: System layer peeling & transection
-const ACT3_DUR = 1.80; // Phase 3: Synchronized camera flight + spatial wave culling
-const ACT5_DUR = 1.00; // Phase 5: Reconstitution / full body restore
+// ── Timing & Visual Ghosting Constants ──────────────────────────────
+const TRANSITION_DUR = 0.80; // Smooth 0.8s cinematic flight & cross-fade
+const RESTORE_DUR = 0.80;    // Smooth 0.8s cinematic return flight & cross-fade
+const GHOST_OPACITY = 0.10;  // Semi-transparent 10% opacity for ghosted surrounding parts
 
 // ── Web Audio Acoustic Telemetry & Chime Synthesizer ─────────────────
 class DissectorAudio {
  private ctx: AudioContext | null = null;
- play(freq: number, duration: number, type: OscillatorType = 'sine', gainVal: number = 0.2) {
+ play(freq: number, duration: number, type: OscillatorType = 'sine', gainVal: number = 0.18) {
   try {
    if (typeof window === 'undefined') return;
    if (!this.ctx) {
@@ -70,12 +72,16 @@ export interface DissectorDeps {
  camera: T.PerspectiveCamera;
  controls: OrbitControls;
  atlas: Atlas;
+ scene?: T.Scene;
+ pickers?: (T.Mesh | undefined)[];
+ materials?: T.Material[];
  /** Per-part alpha array – the dissector writes to this each frame. */
  partAlphas: Float32Array;
  /** Existing data-texture array (4 floats per part: dx,dy,dz,visible). */
  partData: Float32Array;
  alphaData?: Float32Array;
  alphaTexture?: T.DataTexture;
+ colorData?: Float32Array;
  /** Selection texture array for highlighting beacon */
  selectionData?: Uint8Array;
  selectionTexture?: T.DataTexture;
@@ -106,42 +112,40 @@ export class CinematicDissector {
  targetCamPos = new T.Vector3();
  targetBoundingSphere = new T.Sphere();
 
- partDistances: Float32Array | null = null;
- maxRemainingDist = 1.6;
-
  private deps!: DissectorDeps;
  private hudHideTimer: ReturnType<typeof setTimeout> | null = null;
 
- // Act 1: camera anchoring
- private phase1StartCam = new T.Vector3();
- private phase1StartTarget = new T.Vector3();
- private anchorCamPos = new T.Vector3(0.35, 0.95, 2.1);
- private anchorCamTarget = new T.Vector3(0, 0.85, 0);
-
- // Act 3: flight path
- private flightStartCam = new T.Vector3();
- private flightStartTarget = new T.Vector3();
+ // Flight path state
+ private startCamPos = new T.Vector3();
+ private startCamTarget = new T.Vector3();
  private flightMidCam = new T.Vector3();
+ private startGhostAlpha = 1.0;
+ private startGhostFactor = 0.0;
 
- // Act 5: restore snapshots
- private restoreCamPos = new T.Vector3();
- private restoreCamTarget = new T.Vector3();
- private restoreAlphas: Float32Array | null = null;
-
- // Beacon
- private beacon: T.Mesh | null = null;
- private beaconPulseTime = 0;
+ // Full body overview snapshots
+ private fullBodyPos = new T.Vector3(1.2, 1.05, 3.6);
+ private fullBodyTarget = new T.Vector3(0, 0.85, 0);
 
  // Controls lock snapshot
  private savedControlsEnabled = true;
 
- // Reference full body camera
- private fullBodyPos = new T.Vector3(1.4, 1.05, 3.6);
- private fullBodyTarget = new T.Vector3(0, 0.85, 0);
+ // Dedicated vibrant focus mesh group
+ private focusGroup: T.Group | null = null;
 
  init(deps: DissectorDeps) {
   this.deps = deps;
-  this.createBeacon();
+  if (deps.scene) {
+   this.focusGroup = new T.Group();
+   this.focusGroup.name = 'focusGroup';
+   this.focusGroup.renderOrder = 0;
+   deps.scene.add(this.focusGroup);
+  }
+
+  // Record initial whole-body camera perspective
+  if (deps.camera.position.z > 1.8) {
+   this.fullBodyPos.copy(deps.camera.position);
+   this.fullBodyTarget.copy(deps.controls.target);
+  }
 
   // Expose on window matching OmniHuman-3D
   if (typeof window !== 'undefined') {
@@ -150,23 +154,6 @@ export class CinematicDissector {
    win.__ATLAS_DISSECTING__ = false;
   }
  }
-
- // ── Beacon ───────────────────────────────────────────────────────
- private createBeacon() {
-  const geo = new T.SphereGeometry(0.014, 20, 20);
-  const mat = new T.MeshBasicMaterial({color: 0x00f0ff, transparent: true, opacity: 0.9, depthTest: false});
-  this.beacon = new T.Mesh(geo, mat);
-  this.beacon.renderOrder = 20;
-  this.beacon.visible = false;
-
-  const ringGeo = new T.RingGeometry(0.020, 0.026, 32);
-  const ringMat = new T.MeshBasicMaterial({color: 0x00f0ff, transparent: true, opacity: 0.7, side: T.DoubleSide, depthTest: false});
-  const ring = new T.Mesh(ringGeo, ringMat);
-  ring.renderOrder = 20;
-  this.beacon.add(ring);
- }
-
- getBeacon() { return this.beacon; }
 
  private showHud(stage: string, title: string) {
   if (this.hudHideTimer) clearTimeout(this.hudHideTimer);
@@ -180,36 +167,49 @@ export class CinematicDissector {
   }, delayMs);
  }
 
- // ── Start cinematic (Acts 1→4) ──────────────────────────────────
+ // ── Start Focus Flight (Transitions target into 100% vibrant, ghosting surrounding) ─
  start(target: number[] | string, partName?: string) {
   if (!this.deps) return;
 
   let indices: number[] = [];
   if (typeof target === 'string') {
-   const idx = this.deps.atlas.parts.findIndex(p => p.id === target);
+   let idx = this.deps.atlas.parts.findIndex(p => p.id === target);
+   if (idx < 0) {
+    idx = this.deps.atlas.parts.findIndex(p => p.name.toLowerCase() === target.toLowerCase());
+   }
    if (idx < 0) return;
    indices = [idx];
   } else if (Array.isArray(target) && target.length > 0) {
-   indices = target;
+   indices = target.filter(i => i >= 0 && i < this.deps.atlas.parts.length);
+   if (indices.length === 0) return;
   } else {
    return;
   }
 
-  // Prevent re-triggering identical active target
   const firstIdx = indices[0];
   const part = this.deps.atlas.parts[firstIdx];
   if (!part) return;
-  if (this.active && this.targetIndex === firstIdx) return;
 
-  // Save full-body camera position if starting from whole body
-  if (this.deps.camera.position.z > 1.8) {
+  // If already focusing or focused on the exact same structure, do not restart
+  if ((this.state === 'FOCUSED' || this.state === 'FLIGHT_TRANSITION') && this.targetIndex === firstIdx) return;
+
+  // Save full-body camera position if currently starting from whole body
+  if (this.state === 'IDLE' && this.deps.camera.position.z > 1.8) {
    this.fullBodyPos.copy(this.deps.camera.position);
    this.fullBodyTarget.copy(this.deps.controls.target);
   }
 
-  // Mid-transition interrupt: cleanly kill existing and redirect
-  if (this.active) {
-   this.interrupt();
+  // Snapshot current camera & controls for smooth flight start
+  this.startCamPos.copy(this.deps.camera.position);
+  this.startCamTarget.copy(this.deps.controls.target);
+
+  // Snapshot starting ghost state
+  if (this.state === 'IDLE') {
+   this.startGhostAlpha = 1.0;
+   this.startGhostFactor = 0.0;
+  } else {
+   this.startGhostAlpha = this.deps.partAlphas[0] ?? GHOST_OPACITY;
+   this.startGhostFactor = this.deps.alphaData ? this.deps.alphaData[1] : 1.0;
   }
 
   this.targetIndices = indices;
@@ -219,7 +219,7 @@ export class CinematicDissector {
   this.targetName = partName || part.name;
   this.targetSystem = part.system || 'skeletal';
 
-  // Compute target centroid and bounding sphere
+  // Compute unified centroid & bounding box for target indices
   const box = new T.Box3();
   for (const i of indices) {
    if (this.deps.bounds[i]) box.union(this.deps.bounds[i]);
@@ -227,101 +227,229 @@ export class CinematicDissector {
   box.getCenter(this.targetCentroid);
   const size = new T.Vector3();
   box.getSize(size);
-  const maxDim = Math.max(size.x, size.y, size.z, 0.05);
+  const maxDim = Math.max(size.x, size.y, size.z, 0.035);
   this.targetBoundingSphere.set(this.targetCentroid, maxDim * 0.5);
 
-  // Compute close-up camera distance around target bounding box
-  const fov = (this.deps.camera.fov || 34) * (Math.PI / 180);
-  const dist = Math.max((maxDim / 2) / Math.tan(fov / 2) * 1.55, 0.20);
-  let dir = this.deps.camera.position.clone().sub(this.deps.controls.target).normalize();
-  if (dir.lengthSq() < 0.05) dir.set(0.18, 0.08, 0.95).normalize();
-  dir.y = Math.max(dir.y, 0.12);
-  dir.normalize();
-  this.targetCamPos = this.targetCentroid.clone().addScaledVector(dir, dist);
+  // Calculate destination camera framing distance & angle
+  const fovRad = (this.deps.camera.fov || 34) * (Math.PI / 180);
+  const targetDist = Math.max((maxDim / 2) / Math.tan(fovRad / 2) * 1.55, 0.16);
 
-  // Precompute distances of all 2,234 parts from the target structure (OmniHuman-3D)
-  this.partDistances = new Float32Array(this.deps.atlas.parts.length);
-  let maxDist = 0;
-  for (let i = 0; i < this.deps.atlas.parts.length; i++) {
-   if (this.deps.centers[i]) {
-    const d = this.deps.centers[i].distanceTo(this.targetCentroid);
-    this.partDistances[i] = d;
-    if (d > maxDist) maxDist = d;
-   } else {
-    this.partDistances[i] = 1.0;
-   }
+  // Maintain natural viewing azimuth angle with slight elevation
+  let dir = this.startCamPos.clone().sub(this.startCamTarget).normalize();
+  if (dir.lengthSq() < 0.02 || isNaN(dir.x)) {
+   dir.set(0.25, 0.12, 0.96).normalize();
   }
-  this.maxRemainingDist = Math.max(maxDist, 1.2);
+  dir.y = Math.max(0.08, Math.min(0.65, dir.y));
+  dir.normalize();
+  this.targetCamPos = this.targetCentroid.clone().addScaledVector(dir, targetDist);
 
-  // Lock user orbit controls during flight
+  // Calculate swooping curved Bezier midpoint
+  const flightDist = this.startCamPos.distanceTo(this.targetCamPos);
+  this.flightMidCam.lerpVectors(this.startCamPos, this.targetCamPos, 0.48);
+  if (flightDist > 0.20) {
+   const flightDir = this.targetCamPos.clone().sub(this.startCamPos).normalize();
+   const upVec = new T.Vector3(0, 1, 0);
+   const sideVec = new T.Vector3().crossVectors(flightDir, upVec).normalize();
+   this.flightMidCam.addScaledVector(upVec, Math.min(0.20, flightDist * 0.12));
+   this.flightMidCam.addScaledVector(sideVec, Math.min(0.16, flightDist * 0.08));
+  }
+
+  // Setup dedicated solid vibrant focus mesh(es)
+  this.updateFocusGroup(indices);
+
+  // Set merged mesh materials to depthWrite = false during ghosting
+  this.deps.materials?.forEach(m => { m.depthWrite = false; });
+
+  // Temporarily lock user orbit controls during flight
   this.savedControlsEnabled = this.deps.controls.enabled;
   this.deps.controls.enabled = false;
-
-  // Ensure all 2,234 parts visible at start for whole-body context
-  this.deps.partAlphas.fill(1.0);
-
-  // Flag global dissecting state
-  if (typeof window !== 'undefined') {
-   (window as unknown as Record<string, unknown>).__ATLAS_DISSECTING__ = true;
-  }
 
   this.active = true;
   this.elapsed = 0;
 
-  if (this.deps.onSelectPart && this.targetId) {
-   this.deps.onSelectPart(this.targetId);
+  if (typeof window !== 'undefined') {
+   (window as unknown as Record<string, unknown>).__ATLAS_DISSECTING__ = true;
   }
 
-  this.transitionTo('ACT_1_ANCHOR', 1);
-  this.setupAct1();
+  this.transitionTo('FLIGHT_TRANSITION', 1);
+  this.showHud('🎯 FOCUSING STRUCTURE', `Focusing <span class="omni-hud-target-name">${this.targetName}</span> • Surrounding anatomy ghosted.`);
+  audio.play(880, 0.09, 'sine', 0.15);
  }
 
- // ── Act 5: Restore (Reconstitute) ────────────────────────────────
+ // ── Restore (Back to whole body overview) ───────────────────────────
  restore() {
   this.reconstitute();
  }
 
  reconstitute() {
   if (!this.deps) return;
-  if (this.state !== 'ACT_4_SOLO_LOCK' && this.state !== 'IDLE') {
-   this.interrupt();
+  if (this.state === 'IDLE') return;
+
+  // Start smooth camera flight back to full body overview
+  this.startCamPos.copy(this.deps.camera.position);
+  this.startCamTarget.copy(this.deps.controls.target);
+
+  // Calculate return midpoint arc
+  const returnDist = this.startCamPos.distanceTo(this.fullBodyPos);
+  this.flightMidCam.lerpVectors(this.startCamPos, this.fullBodyPos, 0.5);
+  this.flightMidCam.y += Math.min(0.22, returnDist * 0.12);
+
+  // Temporarily lock controls during flight
+  this.deps.controls.enabled = false;
+
+  this.active = true;
+  this.elapsed = 0;
+  this.transitionTo('RESTORE_TRANSITION', 5);
+  this.showHud('🌐 WHOLE BODY', 'Restoring complete human atlas to 100% solid opacity...');
+  audio.play(523.25, 0.12, 'sine', 0.18);
+ }
+
+ // ── Jump directly to solo lock (Instant Finish) ──────────────────────
+ instantFinish() {
+  if (!this.deps || !this.targetPart) return;
+  this.elapsed = TRANSITION_DUR;
+  this.finishFocus();
+ }
+
+ // ── Seek to precise timestamp (for scrubbing / testing) ─────────────
+ seek(targetElapsed: number) {
+  if (!this.active) return;
+  this.elapsed = targetElapsed;
+  this.update(0);
+ }
+
+ // ── Per-frame update (called from scene animation loop) ─────────────
+ update(dt: number) {
+  if (!this.active || this.state === 'IDLE') return;
+
+  if (this.state === 'FOCUSED') {
+   return;
   }
 
-  // Clear beacon and selection highlight
-  if (this.beacon) this.beacon.visible = false;
-  if (this.deps.selectionData) {
-   for (let i = 0; i < this.deps.atlas.parts.length; i++) {
-    this.deps.selectionData[i * 4] = 0;
+  this.elapsed += dt;
+
+  if (this.state === 'FLIGHT_TRANSITION') {
+   const p = Math.min(1.0, this.elapsed / TRANSITION_DUR);
+   const ease = easeInOutCubic(p);
+
+   const {camera, controls, atlas, alphaData, partAlphas} = this.deps;
+
+   // 1. Smoothly glide camera and controls along curved path
+   quadBezier(this.startCamPos, this.flightMidCam, this.targetCamPos, ease, camera.position);
+   controls.target.lerpVectors(this.startCamTarget, this.targetCentroid, ease);
+   controls.update();
+
+   // 2. Smoothly animate opacity cross-fade & cool X-ray glass tint
+   const curGhostAlpha = T.MathUtils.lerp(this.startGhostAlpha, GHOST_OPACITY, ease);
+   const curGhostFactor = T.MathUtils.lerp(this.startGhostFactor, 1.0, ease);
+
+   if (alphaData) {
+    for (let i = 0; i < atlas.parts.length; i++) {
+     if (this.targetIndices.includes(i)) {
+      // Target part rendered solid & vibrant in focusGroup; zero on merged mesh to prevent z-fighting
+      alphaData[i * 4] = 0.0;
+      alphaData[i * 4 + 1] = 0.0;
+      alphaData[i * 4 + 2] = 1.0;
+      partAlphas[i] = 1.0;
+     } else {
+      // Surrounding parts smoothly cross-fade into semi-transparent ~18% opacity with cool X-ray tint
+      alphaData[i * 4] = curGhostAlpha;
+      alphaData[i * 4 + 1] = curGhostFactor;
+      alphaData[i * 4 + 2] = 0.0;
+      partAlphas[i] = curGhostAlpha;
+     }
+    }
+   }
+
+   if (this.deps.alphaTexture) {
+    this.deps.alphaTexture.needsUpdate = true;
+   }
+
+   if (p >= 1.0) {
+    this.finishFocus();
+   }
+  } else if (this.state === 'RESTORE_TRANSITION') {
+   const p = Math.min(1.0, this.elapsed / RESTORE_DUR);
+   const ease = easeInOutCubic(p);
+
+   const {camera, controls, atlas, alphaData, partAlphas} = this.deps;
+
+   // 1. Smoothly glide camera back out to full body overview
+   quadBezier(this.startCamPos, this.flightMidCam, this.fullBodyPos, ease, camera.position);
+   controls.target.lerpVectors(this.startCamTarget, this.fullBodyTarget, ease);
+   controls.update();
+
+   // 2. Smoothly animate opacity cross-fade back to 100% solid opacity
+   const curGhostAlpha = T.MathUtils.lerp(GHOST_OPACITY, 1.0, ease);
+   const curGhostFactor = T.MathUtils.lerp(1.0, 0.0, ease);
+
+   if (alphaData) {
+    for (let i = 0; i < atlas.parts.length; i++) {
+     alphaData[i * 4] = curGhostAlpha;
+     alphaData[i * 4 + 1] = curGhostFactor;
+     alphaData[i * 4 + 2] = 0.0;
+     partAlphas[i] = curGhostAlpha;
+    }
+   }
+
+   if (this.deps.alphaTexture) {
+    this.deps.alphaTexture.needsUpdate = true;
+   }
+
+   if (p >= 1.0) {
+    this.finishRestore();
    }
   }
-  if (this.deps.selectionTexture) {
-   this.deps.selectionTexture.needsUpdate = true;
-  }
+ }
 
-  // Restore all 2,234 parts immediately matching OmniHuman-3D
-  this.deps.partAlphas.fill(1.0);
-  if (this.deps.alphaData) {
-   this.deps.alphaData.fill(1.0);
+ private finishFocus() {
+  const {camera, controls} = this.deps;
+  camera.position.copy(this.targetCamPos);
+  controls.target.copy(this.targetCentroid);
+  controls.enabled = true; // Unlock orbit controls centered on target
+  controls.update();
+
+  this.active = false;
+  this.transitionTo('FOCUSED', 4);
+  this.showHud('🔒 FOCUSED LOCK', `<strong>${this.targetName}</strong> (${this.targetPart?.conceptId || 'FMA'}) in focused inspection.`);
+  this.hideHud(2500);
+  audio.play(1318.5, 0.12, 'sine', 0.20);
+
+  if (typeof window !== 'undefined') {
+   (window as unknown as Record<string, unknown>).__ATLAS_DISSECTING__ = false;
+  }
+  this.deps.onRequestIsolate(this.targetIndices);
+ }
+
+ private finishRestore() {
+  const {controls, atlas, alphaData, partAlphas} = this.deps;
+  controls.enabled = true;
+  controls.update();
+
+  // Clear focusGroup
+  this.clearFocusGroup();
+
+  // Restore depthWrite on merged mesh materials
+  this.deps.materials?.forEach(m => { m.depthWrite = true; });
+
+  // Fully restore all parts to 100% solid opacity & natural colors
+  partAlphas.fill(1.0);
+  if (alphaData) {
+   for (let i = 0; i < atlas.parts.length; i++) {
+    alphaData[i * 4] = 1.0;
+    alphaData[i * 4 + 1] = 0.0;
+    alphaData[i * 4 + 2] = 0.0;
+    alphaData[i * 4 + 3] = 1.0;
+   }
   }
   if (this.deps.alphaTexture) {
    this.deps.alphaTexture.needsUpdate = true;
   }
-  if (this.deps.partData) {
-   for (let i = 0; i < this.deps.atlas.parts.length; i++) {
-    this.deps.partData[i * 4 + 3] = 1.0;
-   }
-  }
 
-  // Fly / reset camera back to full body overview
-  const {camera, controls} = this.deps;
-  camera.clearViewOffset?.();
-  if (this.fullBodyPos.z < 1.8) {
-   this.fullBodyPos.set(1.4, 1.05, 3.6);
-  }
-  camera.position.copy(this.fullBodyPos);
-  controls.target.copy(this.fullBodyTarget);
-  controls.enabled = true;
-  controls.update();
+  this.targetIndices = [];
+  this.targetIndex = -1;
+  this.targetPart = null;
+  this.targetId = null;
 
   this.active = false;
   this.elapsed = 0;
@@ -330,87 +458,82 @@ export class CinematicDissector {
   }
   this.transitionTo('IDLE', 0);
   this.deps.onRequestRestore();
-  this.showHud('🌐 WHOLE BODY', 'Full human twin reconstituted with all 2,234 structures.');
-  this.hideHud(2200);
-  audio.play(523.25, 0.12, 'sine', 0.20);
+  this.showHud('🌐 WHOLE BODY', 'Full human atlas restored to 100% solid opacity.');
+  this.hideHud(2000);
  }
 
- // ── Jump directly to solo lock (Instant Finish) ──────────────────
- instantFinish() {
-  if (!this.deps || !this.targetPart) return;
-  this.elapsed = ACT1_DUR + ACT2_DUR + ACT3_DUR + 0.05;
-  this.setupAct4();
-  this.transitionTo('ACT_4_SOLO_LOCK', 4);
+ // ── Focus Group Management (Solid, vibrant, fully opaque target mesh) 
+ private updateFocusGroup(targetIndices: number[]) {
+  this.clearFocusGroup();
+  if (!this.focusGroup || targetIndices.length === 0) return;
+
+  const {atlas, pickers, colorData} = this.deps;
+  for (const idx of targetIndices) {
+   const part = atlas.parts[idx];
+   const picker = pickers?.[idx];
+   if (!part || !picker || !picker.geometry) continue;
+
+   const hasCustomColor = colorData && colorData[idx * 4 + 3] > 0.05;
+   const baseColor = hasCustomColor && colorData
+    ? new T.Color(colorData[idx * 4], colorData[idx * 4 + 1], colorData[idx * 4 + 2])
+    : new T.Color(SYSTEMS.find(s => s.id === part.system)?.color ?? '#aebbb8');
+
+   // Fully opaque, vibrantly lit PBR material with authentic anatomical color
+   const focusMat = new T.MeshStandardMaterial({
+    color: baseColor,
+    metalness: 0.06,
+    roughness: 0.36,
+    emissive: baseColor.clone().multiplyScalar(0.25), // Vibrant radiance
+    transparent: false,
+    opacity: 1.0,
+    depthWrite: true,
+    depthTest: true,
+    side: T.DoubleSide
+   });
+
+   const mesh = new T.Mesh(picker.geometry, focusMat);
+   mesh.position.copy(picker.position);
+   mesh.renderOrder = 0;
+   this.focusGroup.add(mesh);
+  }
  }
 
- // ── Seek to precise timestamp (for automated testing / scrubbing) 
- seek(targetElapsed: number) {
-  if (!this.active) return;
-  this.elapsed = targetElapsed;
-  this.update(0);
- }
-
- // ── Per-frame update (called from scene animation loop) ───────────
- update(dt: number) {
-  if (!this.active || this.state === 'IDLE') return;
-
-  if (this.state === 'ACT_4_SOLO_LOCK') {
-   return;
-  }
-
-  this.elapsed += dt;
-
-  const tP1 = ACT1_DUR;
-  const tP2 = tP1 + ACT2_DUR;
-  const tP3 = tP2 + ACT3_DUR;
-
-  if (this.state === 'ACT_5_RESTORE') {
-   this.updateAct5(dt);
-   return;
-  }
-
-  if (this.elapsed <= tP1) {
-   if (this.state !== 'ACT_1_ANCHOR') this.transitionTo('ACT_1_ANCHOR', 1);
-   this.updateAct1(dt);
-  } else if (this.elapsed <= tP2) {
-   if (this.state !== 'ACT_2_PEEL') {
-    this.transitionTo('ACT_2_PEEL', 2);
-    this.setupAct2();
-   }
-   this.updateAct2(dt);
-  } else if (this.elapsed <= tP3) {
-   if (this.state !== 'ACT_3_TRANSECT_ZOOM') {
-    this.transitionTo('ACT_3_TRANSECT_ZOOM', 3);
-    this.setupAct3();
-   }
-   this.updateAct3(dt);
-  } else {
-   this.instantFinish();
-  }
-
-  // Animate 3D cyan pulsing beacon during Acts 1-3
-  if (this.beacon && this.beacon.visible) {
-   this.beaconPulseTime += dt;
-   const pulse = 0.65 + 0.35 * Math.sin(this.beaconPulseTime * 6);
-   const scale = 0.85 + 0.35 * Math.sin(this.beaconPulseTime * 4);
-   (this.beacon.material as T.MeshBasicMaterial).opacity = pulse;
-   this.beacon.scale.setScalar(scale);
-   if (this.beacon.children[0]) {
-    this.beacon.children[0].lookAt(this.deps.camera.position);
+ private clearFocusGroup() {
+  if (!this.focusGroup) return;
+  while (this.focusGroup.children.length > 0) {
+   const obj = this.focusGroup.children[0] as T.Mesh;
+   this.focusGroup.remove(obj);
+   if (obj.material) {
+    if (Array.isArray(obj.material)) obj.material.forEach(m => m.dispose());
+    else (obj.material as T.Material).dispose();
    }
   }
  }
 
- // ── Interrupt ────────────────────────────────────────────────────
+ getBeacon() { return null; }
+
+ // ── Interrupt ────────────────────────────────────────────────────────
  interrupt() {
   this.active = false;
   this.phase = 0;
   if (this.hudHideTimer) clearTimeout(this.hudHideTimer);
-  if (this.beacon) this.beacon.visible = false;
+  this.clearFocusGroup();
 
   if (this.deps) {
    this.deps.controls.enabled = this.savedControlsEnabled;
+   this.deps.materials?.forEach(m => { m.depthWrite = true; });
    this.deps.partAlphas.fill(1.0);
+   if (this.deps.alphaData) {
+    for (let i = 0; i < this.deps.atlas.parts.length; i++) {
+     this.deps.alphaData[i * 4] = 1.0;
+     this.deps.alphaData[i * 4 + 1] = 0.0;
+     this.deps.alphaData[i * 4 + 2] = 0.0;
+     this.deps.alphaData[i * 4 + 3] = 1.0;
+    }
+   }
+   if (this.deps.alphaTexture) {
+    this.deps.alphaTexture.needsUpdate = true;
+   }
    this.deps.onHudUpdate(null);
   }
 
@@ -421,256 +544,34 @@ export class CinematicDissector {
   this.transitionTo('IDLE', 0);
  }
 
- // ── Dispose ─────────────────────────────────────────────────────
+ // ── Dispose ─────────────────────────────────────────────────────────
  dispose() {
   this.interrupt();
-  if (this.beacon) {
-   this.beacon.children.forEach(c => {
-    if (c instanceof T.Mesh) {
-     c.geometry.dispose();
-     (c.material as T.Material).dispose();
-    }
-   });
-   this.beacon.geometry.dispose();
-   (this.beacon.material as T.Material).dispose();
-   this.beacon.removeFromParent();
-   this.beacon = null;
+  if (this.focusGroup) {
+   this.clearFocusGroup();
+   this.focusGroup.removeFromParent();
+   this.focusGroup = null;
   }
-  this.restoreAlphas = null;
-  this.partDistances = null;
  }
 
- // ── Private: State Transition ────────────────────────────────────
+ // ── Private: State Transition ────────────────────────────────────────
  private transitionTo(next: DissectorState, phaseNum: number) {
   this.state = next;
   this.phase = phaseNum;
   this.deps?.onStateChange(next);
  }
 
- // ── ACT 1: Full-Body Anchor ─────────────────────────────────────
- private setupAct1() {
-  this.phase1StartCam.copy(this.deps.camera.position);
-  this.phase1StartTarget.copy(this.deps.controls.target);
-
-  // Position 3D pulsing cyan beacon at target centroid
-  if (this.beacon) {
-   this.beacon.position.copy(this.targetCentroid);
-   this.beacon.visible = true;
-   this.beaconPulseTime = 0;
-  }
-
-  this.showHud('🌐 WHOLE BODY', `Locating <span class="omni-hud-target-name">${this.targetName}</span> in human anatomy...`);
-  audio.play(880, 0.08, 'sine', 0.15);
+ // ── Query Methods ────────────────────────────────────────────────────
+ isFocused() {
+  return this.state === 'FOCUSED' || this.state === 'FLIGHT_TRANSITION' || this.state === 'ACT_4_SOLO_LOCK';
  }
 
- private updateAct1(_dt: number) {
-  const p = Math.min(1, this.elapsed / ACT1_DUR);
-  const ease = p * p;
-
-  // Smoothly ease camera to full-body anchor perspective
-  if (this.phase1StartCam.distanceTo(this.anchorCamPos) > 0.15) {
-   this.deps.camera.position.lerpVectors(this.phase1StartCam, this.anchorCamPos, ease * 0.4);
-   this.deps.controls.target.lerpVectors(this.phase1StartTarget, this.anchorCamTarget, ease * 0.4);
-   this.deps.controls.update();
-  }
-
-  // Cyan silhouette pulse on target mesh selection texture
-  if (this.deps.selectionData && this.targetIndex >= 0) {
-   const pulse = 180 + Math.floor(75 * Math.sin(this.elapsed * 25));
-   this.deps.selectionData[this.targetIndex * 4] = pulse;
-  }
+ isActive() {
+  return this.active || this.state !== 'IDLE';
  }
 
- // ── ACT 2: Layer Peeling ────────────────────────────────────────
- private setupAct2() {
-  let stageBadge = 'TRANSITION';
-  let layerDesc = 'Revealing internal anatomy...';
-
-  if (this.targetSystem === 'skeletal') {
-   stageBadge = '🦴 SKELETON LAYER';
-   layerDesc = 'Peeling muscles & skin to reveal <strong>complete skeleton</strong>...';
-  } else if (this.targetSystem === 'cardiac' || this.targetSystem === 'arterial' || this.targetSystem === 'venous') {
-   stageBadge = '💓 CARDIOVASCULAR';
-   layerDesc = 'Peeling thoracic wall to reveal <strong>cardiovascular tree</strong>...';
-  } else if (this.targetSystem === 'muscular') {
-   stageBadge = '💪 MUSCULAR LAYER';
-   layerDesc = 'Peeling skin to expose <strong>muscular architecture</strong>...';
-  } else if (this.targetSystem === 'nervous') {
-   stageBadge = '🧠 NERVOUS SYSTEM';
-   layerDesc = 'Transecting outer layers to expose <strong>neural pathways</strong>...';
-  } else {
-   stageBadge = '🥣 VISCERAL LAYER';
-   layerDesc = `Transecting body wall to expose <strong>${this.targetSystem} system</strong>...`;
-  }
-
-  this.showHud(stageBadge, layerDesc);
-  audio.play(659.25, 0.10, 'triangle', 0.15);
- }
-
- private updateAct2(_dt: number) {
-  const peelProgress = Math.min(1, Math.max(0, (this.elapsed - ACT1_DUR) / ACT2_DUR));
-  const {atlas, partAlphas} = this.deps;
-
-  // Hierarchical layer peel logic matching OmniHuman-3D
-  for (let i = 0; i < atlas.parts.length; i++) {
-   if (this.targetIndices.includes(i)) {
-    partAlphas[i] = 1.0;
-    continue;
-   }
-   const pSys = atlas.parts[i].system;
-
-   if (this.targetSystem === 'skeletal') {
-    // Immediately peel muscles and integumentary in Phase 2
-    if (pSys === 'muscular' || pSys === 'integumentary') {
-     partAlphas[i] = 0.0;
-    } else if (pSys !== 'skeletal') {
-     // Peel visceral/vascular/nervous in second half of Phase 2
-     partAlphas[i] = peelProgress > 0.45 ? 0.0 : 1.0;
-    } else {
-     partAlphas[i] = 1.0; // Complete skeleton remains visible (>200 bones)!
-    }
-   } else if (this.targetSystem === 'cardiac' || this.targetSystem === 'arterial' || this.targetSystem === 'venous') {
-    if (pSys === 'muscular' || pSys === 'integumentary') {
-     partAlphas[i] = 0.0;
-    } else if (pSys === 'skeletal') {
-     partAlphas[i] = peelProgress > 0.45 ? 0.0 : 1.0;
-    } else {
-     partAlphas[i] = 1.0;
-    }
-   } else if (this.targetSystem === 'muscular') {
-    if (pSys === 'integumentary') {
-     partAlphas[i] = 0.0;
-    } else if (pSys !== 'muscular') {
-     partAlphas[i] = peelProgress > 0.45 ? 0.0 : 1.0;
-    } else {
-     partAlphas[i] = 1.0;
-    }
-   } else {
-    if (pSys === 'integumentary' || pSys === 'muscular') {
-     partAlphas[i] = 0.0;
-    } else if (pSys !== this.targetSystem) {
-     partAlphas[i] = peelProgress > 0.45 ? 0.0 : 1.0;
-    } else {
-     partAlphas[i] = 1.0;
-    }
-   }
-  }
- }
-
- // ── ACT 3: Flight Zoom & Distance-Based Transection ─────────────
- private setupAct3() {
-  const {camera, controls} = this.deps;
-  this.flightStartCam.copy(camera.position);
-  this.flightStartTarget.copy(controls.target);
-
-  // Midpoint with elevated curve for dramatic cinematic swooping
-  this.flightMidCam.lerpVectors(this.flightStartCam, this.targetCamPos, 0.45);
-  this.flightMidCam.y += Math.max(0.35, this.targetBoundingSphere.radius * 2);
-
-  this.showHud('🎯 TRANSECTION & ZOOM', `Zooming inward • Transecting surrounding structures to <span class="omni-hud-target-name">${this.targetName}</span>...`);
- }
-
- private updateAct3(_dt: number) {
-  const flightP = Math.min(1, Math.max(0, (this.elapsed - (ACT1_DUR + ACT2_DUR)) / ACT3_DUR));
-  const ease = easeInOutCubic(flightP);
-  const {camera, controls, atlas, partAlphas} = this.deps;
-
-  // 1. Fly camera along smooth curved Bezier path
-  quadBezier(this.flightStartCam, this.flightMidCam, this.targetCamPos, ease, camera.position);
-  controls.target.lerpVectors(this.flightStartTarget, this.targetCentroid, ease);
-  controls.update();
-
-  // 2. Spatial Wavefront / Distance-Based Transection (OmniHuman-3D)
-  // Parts further from target center peel away progressively as camera approaches!
-  const cutoffRadius = this.maxRemainingDist * Math.pow(1.0 - ease, 1.7);
-
-  if (this.partDistances) {
-   for (let i = 0; i < atlas.parts.length; i++) {
-    if (this.targetIndices.includes(i)) {
-     partAlphas[i] = 1.0;
-     continue;
-    }
-    const d = this.partDistances[i];
-    if (d > cutoffRadius) {
-     partAlphas[i] = 0.0;
-    }
-   }
-  }
- }
-
- // ── ACT 4: Solo Target Lock ─────────────────────────────────────
- private setupAct4() {
-  const {partAlphas, atlas, camera, controls} = this.deps;
-
-  // 1. Hide all non-target meshes completely; only target is visible
-  for (let i = 0; i < atlas.parts.length; i++) {
-   partAlphas[i] = this.targetIndices.includes(i) ? 1.0 : 0.0;
-  }
-
-  // 2. Hide beacon & clear selection highlight so solo target renders in authentic anatomical colors
-  if (this.beacon) this.beacon.visible = false;
-  if (this.deps.selectionData) {
-   for (let i = 0; i < atlas.parts.length; i++) {
-    this.deps.selectionData[i * 4] = 0;
-   }
-  }
-  if (this.deps.selectionTexture) {
-   this.deps.selectionTexture.needsUpdate = true;
-  }
-
-  // 3. Lock camera precisely to target orbit framing
-  camera.position.copy(this.targetCamPos);
-  controls.target.copy(this.targetCentroid);
-  controls.enabled = true; // Re-enable user orbit controls focused on solo target
-  controls.update();
-
-  // 4. Update HUD Toast & Clinical Dossier
-  this.showHud('🔒 ISOLATED', `<strong>${this.targetName}</strong> (${this.targetPart?.conceptId || 'FMA'}) in solo inspection.`);
-  this.hideHud(3000);
-
-  // 5. Audio chime
-  audio.play(1318.5, 0.15, 'sine', 0.25);
-
-  // 6. Signal React state isolation
-  if (typeof window !== 'undefined') {
-   (window as unknown as Record<string, unknown>).__ATLAS_DISSECTING__ = false;
-  }
-  this.deps.onRequestIsolate(this.targetIndices);
- }
-
- // ── ACT 5: Restore (Reconstitute) ────────────────────────────────
- private updateAct5(_dt: number) {
-  const t = easeInOutCubic(Math.min(1, this.elapsed / ACT5_DUR));
-  const {camera, controls, partAlphas, atlas} = this.deps;
-
-  // Fly camera back to full-body overview
-  camera.position.lerpVectors(this.restoreCamPos, this.fullBodyPos, t);
-  controls.target.lerpVectors(this.restoreCamTarget, this.fullBodyTarget, t);
-  controls.update();
-
-  // Sequentially fade and reassemble all 2,234 parts back to 100% opacity
-  if (this.restoreAlphas) {
-   for (let i = 0; i < atlas.parts.length; i++) {
-    partAlphas[i] = T.MathUtils.lerp(this.restoreAlphas[i], 1.0, t);
-   }
-  }
-
-  if (this.elapsed >= ACT5_DUR) {
-   partAlphas.fill(1.0);
-   controls.enabled = true;
-   this.deps.onRequestRestore();
-   this.hideHud(2000);
-   this.active = false;
-   if (typeof window !== 'undefined') {
-    (window as unknown as Record<string, unknown>).__ATLAS_DISSECTING__ = false;
-   }
-   this.transitionTo('IDLE', 0);
-  }
- }
-
- // ── Query Methods ────────────────────────────────────────────────
- isActive() { return this.active && this.state !== 'IDLE'; }
  isControlsLocked() {
-  return this.active && (this.state === 'ACT_1_ANCHOR' || this.state === 'ACT_2_PEEL' || this.state === 'ACT_3_TRANSECT_ZOOM' || this.state === 'ACT_5_RESTORE');
+  return this.active && (this.state === 'FLIGHT_TRANSITION' || this.state === 'RESTORE_TRANSITION');
  }
 }
+

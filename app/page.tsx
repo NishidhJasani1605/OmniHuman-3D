@@ -156,7 +156,6 @@ export default function Home(){
 
  const [leftPanelTab, setLeftPanelTab] = useState<'systems' | 'dimorphic'>('systems');
  const [dimorphicSearch, setDimorphicSearch] = useState<string>('');
- const [bottomTrayOpen, setBottomTrayOpen] = useState<boolean>(true);
  const [spatialTarget, setSpatialTarget] = useState<{
   name: string;
   sex: 'female' | 'male';
@@ -403,7 +402,7 @@ export default function Home(){
   const p = parts.get(id);
   if (!p) return;
   setChosen({ id: p.conceptId, name: p.name, elements: [id] });
-  setState(s => ({ ...s, selected: [id], isolate: false, rotate: false, explode: 0 }));
+  setState(s => ({ ...s, selected: [id], isolate: true, rotate: false, explode: 0 }));
   setDetails(true);
   setPanel(null);
   if (dissectorRef.current && atlas) {
@@ -413,17 +412,7 @@ export default function Home(){
  };
 
  const isolatePart = (id: string) => {
-  const p = parts.get(id);
-  if (!p || !atlas) return;
-  setChosen({ id: p.conceptId, name: p.name, elements: [id] });
-  const idx = atlas.parts.findIndex(pp => pp.id === id);
-  if (dissectorRef.current && idx >= 0) {
-   dissectorRef.current.start([idx], p.name);
-   dissectorRef.current.instantFinish();
-  }
-  setState(s => ({ ...s, selected: [id], isolate: true, rotate: false, explode: 0 }));
-  setDetails(true);
-  setPanel(null);
+  choosePart(id);
  };
 
  const handleSelectFemalePart = (p: FemaleUniquePart, shouldIsolate = true) => {
@@ -573,20 +562,21 @@ export default function Home(){
   return { vertices: verts, faces };
  }, [selectedParts]);
 
- const handleIsolateToggle = useCallback(() => {
-  if (state.isolate) {
-   if (dissectorRef.current) dissectorRef.current.reconstitute();
-   setState(s => ({ ...s, isolate: false }));
-  } else if (selected && atlas) {
-   const idx = atlas.parts.findIndex(pp => pp.id === selected.id);
-   if (dissectorRef.current && idx >= 0) {
-    dissectorRef.current.start([idx], selected.name);
-    dissectorRef.current.instantFinish();
-   }
-   setState(s => ({ ...s, isolate: true, explode: 0 }));
-   setDetails(true);
+ const handleRestoreWholeBody = useCallback(() => {
+  if (dissectorRef.current) {
+   dissectorRef.current.restore();
   }
- }, [state.isolate, selected, atlas]);
+  setState(s => ({ ...s, selected: [], isolate: false }));
+  setDetails(false);
+ }, []);
+
+ const handleIsolateToggle = useCallback(() => {
+  if (state.isolate || (dissectorRef.current && dissectorRef.current.isFocused())) {
+   handleRestoreWholeBody();
+  } else if (selected && atlas) {
+   choosePart(selected.id);
+  }
+ }, [state.isolate, selected, atlas, handleRestoreWholeBody]);
 
  return (
   <main className="studio">
@@ -609,13 +599,14 @@ export default function Home(){
    }}>
     <button
      type="button"
+     id="btn-nav-male"
      onClick={() => setMode('male')}
      style={{
       background: mode === 'male' ? 'rgba(56, 189, 248, 0.16)' : 'transparent',
       color: mode === 'male' ? '#38bdf8' : '#94a3b8',
       border: mode === 'male' ? '1px solid rgba(56, 189, 248, 0.4)' : '1px solid transparent',
       borderRadius: '6px',
-      padding: '6px 14px',
+      padding: '6px 16px',
       fontSize: '13px',
       fontWeight: mode === 'male' ? 600 : 500,
       cursor: 'pointer',
@@ -627,56 +618,21 @@ export default function Home(){
 
     <button
      type="button"
+     id="btn-nav-female"
      onClick={() => setMode('female')}
      style={{
       background: mode === 'female' ? 'rgba(244, 114, 182, 0.16)' : 'transparent',
       color: mode === 'female' ? '#f472b6' : '#94a3b8',
       border: mode === 'female' ? '1px solid rgba(244, 114, 182, 0.4)' : '1px solid transparent',
       borderRadius: '6px',
-      padding: '6px 14px',
+      padding: '6px 16px',
       fontSize: '13px',
       fontWeight: mode === 'female' ? 600 : 500,
       cursor: 'pointer',
       transition: 'all 0.15s ease'
      }}
     >
-     👩 Female Atlas ▾
-    </button>
-
-    <button
-     type="button"
-     onClick={() => setMode('pregnancy')}
-     style={{
-      background: mode === 'pregnancy' ? 'rgba(168, 85, 247, 0.16)' : 'transparent',
-      color: mode === 'pregnancy' ? '#c084fc' : '#94a3b8',
-      border: mode === 'pregnancy' ? '1px solid rgba(168, 85, 247, 0.4)' : '1px solid transparent',
-      borderRadius: '6px',
-      padding: '6px 14px',
-      fontSize: '13px',
-      fontWeight: mode === 'pregnancy' ? 600 : 500,
-      cursor: 'pointer',
-      transition: 'all 0.15s ease'
-     }}
-    >
-     🤰 Pregnancy (0–40w)
-    </button>
-
-    <button
-     type="button"
-     onClick={() => setMode('aging')}
-     style={{
-      background: mode === 'aging' ? 'rgba(52, 211, 153, 0.16)' : 'transparent',
-      color: mode === 'aging' ? '#34d399' : '#94a3b8',
-      border: mode === 'aging' ? '1px solid rgba(52, 211, 153, 0.4)' : '1px solid transparent',
-      borderRadius: '6px',
-      padding: '6px 14px',
-      fontSize: '13px',
-      fontWeight: mode === 'aging' ? 600 : 500,
-      cursor: 'pointer',
-      transition: 'all 0.15s ease'
-     }}
-    >
-     ⏳ Age Explorer (0–80y)
+     👩 Female Atlas
     </button>
 
     <div style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.15)', margin: '0 4px' }} />
@@ -695,7 +651,7 @@ export default function Home(){
       color: mode === 'dimorphic' ? '#ffffff' : '#f1f5f9',
       border: mode === 'dimorphic' ? '1px solid rgba(255, 255, 255, 0.65)' : '1px solid rgba(255, 255, 255, 0.22)',
       borderRadius: '6px',
-      padding: '6px 14px',
+      padding: '6px 16px',
       fontSize: '13px',
       fontWeight: mode === 'dimorphic' ? 700 : 600,
       cursor: 'pointer',
@@ -712,52 +668,6 @@ export default function Home(){
      <span style={{ fontSize: '10px', background: 'rgba(255,255,255,0.2)', padding: '1px 6px', borderRadius: '10px' }}>
       77 🌸 + 30 ⚡
      </span>
-    </button>
-
-    <button
-     type="button"
-     id="btn-female-unique-catalog"
-     onClick={() => { setSexCatalogTab('female'); setFemaleCatalogOpen(true); setPanel(null); }}
-     style={{
-      background: femaleCatalogOpen && sexCatalogTab === 'female' ? 'rgba(236, 72, 153, 0.35)' : 'linear-gradient(135deg, rgba(236, 72, 153, 0.22), rgba(219, 39, 119, 0.36))',
-      color: '#f472b6',
-      border: '1px solid rgba(244, 114, 182, 0.6)',
-      borderRadius: '6px',
-      padding: '6px 12px',
-      fontSize: '12.5px',
-      fontWeight: 700,
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '6px',
-      boxShadow: '0 0 14px rgba(236, 72, 153, 0.35)',
-      transition: 'all 0.15s ease'
-     }}
-    >
-     🌸 Women&apos;s Unique Anatomy ({femaleUniqueParts.length || 77})
-    </button>
-
-    <button
-     type="button"
-     id="btn-male-unique-catalog"
-     onClick={() => { setSexCatalogTab('male'); setFemaleCatalogOpen(true); setPanel(null); }}
-     style={{
-      background: femaleCatalogOpen && sexCatalogTab === 'male' ? 'rgba(6, 182, 212, 0.35)' : 'linear-gradient(135deg, rgba(6, 182, 212, 0.22), rgba(14, 165, 233, 0.36))',
-      color: '#38bdf8',
-      border: '1px solid rgba(56, 189, 248, 0.6)',
-      borderRadius: '6px',
-      padding: '6px 12px',
-      fontSize: '12.5px',
-      fontWeight: 700,
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '6px',
-      boxShadow: '0 0 14px rgba(56, 189, 248, 0.35)',
-      transition: 'all 0.15s ease'
-     }}
-    >
-     ⚡ Men&apos;s Unique Anatomy ({maleUniqueParts.length || 30})
     </button>
    </nav>
 
@@ -857,7 +767,7 @@ export default function Home(){
      zIndex: 99
     }}>
      <span style={{ fontSize: '11px', color: '#94a3b8', marginRight: '6px' }}>Female Models:</span>
-     {(['female-fullbody', 'female-trunk-hra', 'female-dimorphic', 'female-hybrid-vhf'] as FemalePath[]).map(p => (
+     {(['female-fullbody', 'female-dimorphic'] as FemalePath[]).map(p => (
       <button
        key={p}
        type="button"
@@ -874,12 +784,9 @@ export default function Home(){
         cursor: 'pointer',
         boxShadow: femalePath === p && p === 'female-dimorphic' ? '0 0 10px rgba(244, 114, 182, 0.4)' : 'none'
        }}
-       title={p === 'female-dimorphic' ? 'Display ONLY the 77 Female-Unique anatomical structures isolated in 3D WebGL (like NIH HRA Trunk)' : undefined}
+       title={p === 'female-dimorphic' ? 'Display ONLY the 77 Female-Unique anatomical structures isolated in 3D WebGL' : undefined}
       >
-       {p === 'female-fullbody' ? '✨ Full-Body Parity (2,279)' :
-        p === 'female-trunk-hra' ? '🏛️ NIH HRA Trunk (357)' :
-        p === 'female-dimorphic' ? '🌸 Female-Only Unique (77)' :
-        '🔬 VHF Hybrid (2,279)'}
+        {p === 'female-fullbody' ? '✨ Full-Body Parity (2,279)' : '🌸 Female-Only Unique (77)'}
       </button>
      ))}
 
@@ -957,97 +864,6 @@ export default function Home(){
     </div>
    )}
 
-   {mode === 'pregnancy' && (
-    <div style={{
-     position: 'absolute',
-     top: '47px',
-     left: 0,
-     right: 0,
-     height: '42px',
-     background: 'rgba(30, 27, 75, 0.75)',
-     borderBottom: '1px solid rgba(168, 85, 247, 0.25)',
-     display: 'flex',
-     alignItems: 'center',
-     justifyContent: 'center',
-     gap: '24px',
-     zIndex: 99,
-     padding: '0 20px',
-     fontSize: '12px',
-     color: '#e2e8f0'
-    }}>
-     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '220px' }}>
-      <span>🤰 Gestation: <strong>Week {pregWeek}</strong>/40</span>
-      <Slider min={4} max={40} step={1} value={[pregWeek]} onValueChange={v => setPregWeek(Array.isArray(v) ? v[0] : v)} style={{ width: '100px' }} />
-     </div>
-     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '240px' }}>
-      <span>Uterine Window Cutaway: <strong>{uterineOpacity}%</strong></span>
-      <Slider min={0} max={100} step={5} value={[uterineOpacity]} onValueChange={v => setUterineOpacity(Array.isArray(v) ? v[0] : v)} style={{ width: '80px' }} />
-     </div>
-     <span style={{ fontSize: '11px', color: '#c084fc' }}>• Fundal Height: 38cm • Diaphragm +4cm • Fetus Presentation: Cephalic</span>
-    </div>
-   )}
-
-   {mode === 'aging' && (
-    <div style={{
-     position: 'absolute',
-     top: '47px',
-     left: 0,
-     right: 0,
-     height: '42px',
-     background: 'rgba(6, 78, 59, 0.75)',
-     borderBottom: '1px solid rgba(52, 211, 153, 0.25)',
-     display: 'flex',
-     alignItems: 'center',
-     justifyContent: 'center',
-     gap: '24px',
-     zIndex: 99,
-     padding: '0 20px',
-     fontSize: '12px',
-     color: '#e2e8f0'
-    }}>
-     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '220px' }}>
-      <span>⏳ Age: <strong>{ageYear} Years</strong></span>
-      <Slider min={0} max={80} step={1} value={[ageYear]} onValueChange={v => setAgeYear(Array.isArray(v) ? v[0] : v)} style={{ width: '120px' }} />
-     </div>
-     <button
-      type="button"
-      onClick={() => setDexaEnabled(!dexaEnabled)}
-      style={{
-       background: dexaEnabled ? '#10b981' : 'rgba(255,255,255,0.08)',
-       color: dexaEnabled ? '#000' : '#fff',
-       border: 'none',
-       borderRadius: '4px',
-       padding: '4px 10px',
-       fontSize: '11px',
-       fontWeight: 600,
-       cursor: 'pointer'
-      }}
-     >
-      🦴 DEXA Heatmap: {dexaEnabled ? 'ACTIVE (T-Score)' : 'OFF'}
-     </button>
-     {dexaEnabled && (
-      <button
-       type="button"
-       onClick={() => setState(s => ({ ...s, visible: s.visible.length === 1 && s.visible[0] === 'skeletal' ? DEFAULT_VISIBLE : ['skeletal'] }))}
-       style={{
-        background: state.visible.length === 1 && state.visible[0] === 'skeletal' ? 'rgba(52, 211, 153, 0.3)' : 'rgba(255,255,255,0.08)',
-        color: '#fff',
-        border: '1px solid rgba(52, 211, 153, 0.5)',
-        borderRadius: '4px',
-        padding: '4px 10px',
-        fontSize: '11px',
-        cursor: 'pointer'
-       }}
-      >
-       {state.visible.length === 1 && state.visible[0] === 'skeletal' ? '👁️ All Systems' : '💀 Skeleton Only'}
-      </button>
-     )}
-     <span style={{ fontSize: '11px', color: '#6ee7b7' }}>
-      {ageYear <= 18 ? 'Pediatric (0–18y): Epiphyseal growth active · Low baseline mineralization' : ageYear <= 35 ? 'Peak Adult Bone Mass (T > +1.0) · Optimal Skeletal Density' : ageYear <= 50 ? 'Mature Adult (T: +0.5 to -0.9) · Baseline Physiological Resorption' : ageYear <= 60 ? 'Perimenopause (T: -1.0 to -2.4) · Osteopenia Risk at Femoral Neck & L1–L4' : 'Geriatric (T: < -2.5) · Severe Osteoporosis · High Fracture Vulnerability'}
-     </span>
-    </div>
-   )}
-
    {atlas && (
     <AnatomyScene
      atlas={atlas}
@@ -1066,7 +882,7 @@ export default function Home(){
      onError={setError}
      onCinematicState={s => {
       setCinematicState(s);
-      if (s === 'ACT_4_SOLO_LOCK') {
+      if (s === 'FOCUSED' || s === 'ACT_4_SOLO_LOCK') {
        setState(st => ({ ...st, isolate: true, explode: 0 }));
        setDetails(true);
       } else if (s === 'IDLE') {
@@ -1077,6 +893,20 @@ export default function Home(){
      onCinematicReady={d => { dissectorRef.current = d; }}
      onRequestRestore={() => { setState(s => ({ ...s, isolate: false, selected: [] })); setDetails(false); }}
     />
+   )}
+
+   {/* Floating "↺ Back to whole body" Button */}
+   {Boolean(state.selected.length > 0 || cinematicState === 'FOCUSED' || cinematicState === 'FLIGHT_TRANSITION' || (dissectorRef.current?.isFocused())) && (
+    <button
+     type="button"
+     id="btn-back-whole-body"
+     className="floating-back-button"
+     onClick={handleRestoreWholeBody}
+     title="Restore all parts to 100% solid opacity and return to whole body overview (or click empty background)"
+    >
+     <RotateCcw size={15} />
+     <span>↺ Back to whole body</span>
+    </button>
    )}
 
    <div className="vignette" />
@@ -1192,7 +1022,7 @@ export default function Home(){
      <span>{mode === 'dimorphic' ? '↔️' : mode === 'male' ? '⚡' : '🌸'}</span>
      <span>{mode === 'dimorphic' ? "Side-by-Side (107)" : mode === 'male' ? "Men's Unique (30)" : "Women's Unique (77)"}</span>
     </Button>
-    <Button variant="ghost" className={panel === 'search' ? 'active' : ''} onClick={() => openPanel('search')} aria-label="Search anatomy">
+    <Button variant="ghost" id="btn-open-search" className={panel === 'search' ? 'active' : ''} onClick={() => openPanel('search')} aria-label="Search anatomy">
      <Search size={18} /><span>Find a structure</span><kbd>/</kbd>
     </Button>
     <Button variant="ghost" className="icon-button" aria-label="About this atlas" onClick={() => { setDetails(false); setPanel(null); setAbout(true); }}>
@@ -1776,69 +1606,6 @@ export default function Home(){
     <span className="caption-line" />
    </div>
 
-   <div className="dimorphic-shelf-container">
-    {bottomTrayOpen && (
-     <div className="dimorphic-horizontal-tray">
-      <div className="dimorphic-tray-top">
-       <div className="flex items-center gap-2">
-        <span className="text-xs font-bold text-white">
-         {mode === 'dimorphic' ? "↔️ Side-by-Side Sex-Unique Anatomy (77 🌸 Female + 30 ⚡ Male)" : mode === 'male' ? "⚡ Men's Unique Structures (30)" : "🌸 Women's Unique Structures (77)"}
-        </span>
-        <span className="text-[10px] text-slate-400">· Exact 3D Positions &amp; Anatomy</span>
-       </div>
-       <div className="flex items-center gap-2">
-        <button
-         type="button"
-         className="text-slate-400 hover:text-white text-xs px-2 py-1 cursor-pointer"
-         onClick={() => setBottomTrayOpen(false)}
-        >
-         ✕
-        </button>
-       </div>
-      </div>
-      <div className="dimorphic-tray-scroll">
-       {filteredDimorphicParts.map(p => (
-        <div key={`tray-${p.sex}-${p.id}`} className={`dimorphic-tray-card ${p.sex}`}>
-         <div>
-          <div className="flex items-center justify-between gap-1 mb-1">
-           <span className={`dimorphic-sex-badge ${p.sex}`}>
-            {p.sex === 'female' ? '🌸 Female' : '⚡ Male'}
-           </span>
-           <span className="text-[9px] text-slate-400 font-mono">{p.conceptId || p.id}</span>
-          </div>
-          <div className="text-xs font-bold text-white truncate" title={p.name}>{p.name}</div>
-         </div>
-         <div className="dimorphic-exact-coords text-[9px]">
-          <span>📍 [{p.exactPos.x}, {p.exactPos.y}, {p.exactPos.z}] cm</span>
-         </div>
-         <div className="text-[9.5px] text-slate-300 truncate" title={p.landmark}>
-          🏷️ {p.landmark}
-         </div>
-         <button
-          type="button"
-          className={`dimorphic-btn-focus ${p.sex}-btn`}
-          onClick={() => handleSelectDimorphicPart(p, true)}
-          title="Focus exact 3D position and isolate"
-         >
-          🎯 Focus Structure
-         </button>
-        </div>
-       ))}
-      </div>
-     </div>
-    )}
-    <button
-     type="button"
-     id="btn-toggle-dimorphic-tray"
-     className="dimorphic-shelf-toggle"
-     onClick={() => setBottomTrayOpen(o => !o)}
-     title={mode === 'dimorphic' ? "Toggle Side-by-Side Anatomy Shelf" : mode === 'male' ? "Toggle Men's Unique Anatomy Shelf" : "Toggle Women's Unique Anatomy Shelf"}
-    >
-     <span>{mode === 'dimorphic' ? "↔️ Side-by-Side Anatomy Shelf (107 Total: 77 🌸 + 30 ⚡)" : mode === 'male' ? "⚡ Men's Unique Anatomy Shelf (30 Structures)" : "🌸 Women's Unique Anatomy Shelf (77 Structures)"}</span>
-     <span className="text-[10px] text-sky-400">{bottomTrayOpen ? '▼ Hide' : '▲ Show'}</span>
-    </button>
-   </div>
-
    <div className="bottom-dock glass">
     <Button variant="ghost" className="mobile-only dock-layers" onClick={() => openPanel('layers')} aria-label="Open system layers">
      <Layers3 size={20} /><span>Systems</span>
@@ -1906,10 +1673,10 @@ export default function Home(){
      </div>
      <div className="detail-actions">
       <Button className={`primary-action ${state.isolate ? 'active' : ''}`} id="btn-isolate-part" onClick={handleIsolateToggle}>
-       {state.isolate ? <><Eye size={18} /><span id="txt-isolate">[ 👁️ Show Full Body ]</span></> : <><Focus size={18} /><span id="txt-isolate">Isolate structure</span><ChevronRight size={16} /></>}
+       {state.isolate ? <><Eye size={18} /><span id="txt-isolate">[ ↺ Back to whole body ]</span></> : <><Focus size={18} /><span id="txt-isolate">Focus structure</span><ChevronRight size={16} /></>}
       </Button>
-      <Button variant="ghost" className="secondary-action" onClick={() => { if (dissectorRef.current) dissectorRef.current.reconstitute(); setState(s => ({ ...s, selected: [], isolate: false })); setDetails(false); }}>
-       Clear selection
+      <Button variant="ghost" className="secondary-action" onClick={handleRestoreWholeBody}>
+       ↺ Back to whole body
       </Button>
      </div>
     </SheetContent>

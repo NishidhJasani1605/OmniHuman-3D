@@ -175,7 +175,12 @@ export default function AnatomyScene({
     selectionTexture.needsUpdate = true;
 
     const alphaData = new Float32Array(width * 4);
-    alphaData.fill(1.0);
+    for (let j = 0; j < width; j++) {
+      alphaData[j * 4] = 1.0;
+      alphaData[j * 4 + 1] = 0.0;
+      alphaData[j * 4 + 2] = 0.0;
+      alphaData[j * 4 + 3] = 1.0;
+    }
     const alphaTexture = new T.DataTexture(alphaData, width, 1, T.RGBAFormat, T.FloatType);
     alphaTexture.needsUpdate = true;
 
@@ -267,13 +272,16 @@ export default function AnatomyScene({
         shader.uniforms.pregProgress = pregProgUni;
         shader.uniforms.ageProgress = ageProgUni;
 
-        shader.vertexShader = 'attribute float partIndex; uniform sampler2D partState; uniform sampler2D selectionState; uniform sampler2D alphaState; uniform sampler2D colorState; uniform float stateWidth; uniform float isFemale; uniform float isPregnancy; uniform float isAbdominalWall; uniform float pregProgress; uniform float ageProgress; varying float partVisible; varying float partSelected; varying float partAlpha; varying vec4 partCustomColor;\n' + shader.vertexShader;
+        shader.vertexShader = 'attribute float partIndex; uniform sampler2D partState; uniform sampler2D selectionState; uniform sampler2D alphaState; uniform sampler2D colorState; uniform float stateWidth; uniform float isFemale; uniform float isPregnancy; uniform float isAbdominalWall; uniform float pregProgress; uniform float ageProgress; varying float partVisible; varying float partSelected; varying float partAlpha; varying float partGhost; varying float partTarget; varying vec4 partCustomColor;\n' + shader.vertexShader;
         shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>', `
 #include <begin_vertex>
 vec2 stateUv = vec2((partIndex + 0.5) / stateWidth, 0.5);
 vec4 state = texture2D(partState, stateUv);
 partSelected = texture2D(selectionState, stateUv).r;
-partAlpha = texture2D(alphaState, stateUv).r;
+vec4 alphaSample = texture2D(alphaState, stateUv);
+partAlpha = alphaSample.r;
+partGhost = alphaSample.g;
+partTarget = alphaSample.b;
 partCustomColor = texture2D(colorState, stateUv);
 partVisible = state.w;
 
@@ -337,16 +345,28 @@ if (ageProgress > 0.55) {
 
 transformed = pos + state.xyz;
 `);
-        shader.fragmentShader = 'varying float partVisible; varying float partSelected; varying float partAlpha; varying vec4 partCustomColor;\n' + shader.fragmentShader;
-        shader.fragmentShader = shader.fragmentShader.replace('#include <clipping_planes_fragment>', '#include <clipping_planes_fragment>\nif (partVisible < 0.5 || partAlpha < 0.01) discard;');
+        shader.fragmentShader = 'varying float partVisible; varying float partSelected; varying float partAlpha; varying float partGhost; varying float partTarget; varying vec4 partCustomColor;\n' + shader.fragmentShader;
+        shader.fragmentShader = shader.fragmentShader.replace('#include <clipping_planes_fragment>', '#include <clipping_planes_fragment>\nif (partVisible < 0.5 || partAlpha < 0.005) discard;');
         shader.fragmentShader = shader.fragmentShader.replace('#include <color_fragment>', `
 #include <color_fragment>
 if (partCustomColor.a > 0.05) {
   diffuseColor.rgb = mix(diffuseColor.rgb, partCustomColor.rgb, partCustomColor.a);
 }
-if (partSelected > 0.5) {
-  diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.35, 0.85, 0.82), 0.35) + vec3(0.06, 0.16, 0.16);
+
+// 1. Visual Ghosting Effect: cool desaturated X-ray glass tint (~18% opacity)
+if (partGhost > 0.005) {
+  float luma = dot(diffuseColor.rgb, vec3(0.299, 0.587, 0.114));
+  vec3 xRayTint = vec3(0.18, 0.44, 0.68) * (luma * 0.70 + 0.30) + vec3(0.04, 0.10, 0.16);
+  diffuseColor.rgb = mix(diffuseColor.rgb, xRayTint, partGhost * 0.85);
 }
+
+// 2. Focused target part: 100% perfectly visible, fully opaque, vibrantly lit
+if (partTarget > 0.005) {
+  diffuseColor.rgb = diffuseColor.rgb * (1.0 + 0.35 * partTarget) + vec3(0.06, 0.12, 0.16) * partTarget;
+} else if (partSelected > 0.5 && partGhost < 0.005) {
+  diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.35, 0.85, 0.82), 0.25);
+}
+
 diffuseColor.a *= partAlpha;
 `);
       };
@@ -559,9 +579,9 @@ diffuseColor.a *= partAlpha;
       // Synchronize partAlphas into alphaData buffer for alphaTexture
       for (let j = 0; j < atlas.parts.length; j++) {
         alphaData[j * 4] = partAlphas[j];
-        alphaData[j * 4 + 1] = partAlphas[j];
-        alphaData[j * 4 + 2] = partAlphas[j];
-        alphaData[j * 4 + 3] = partAlphas[j];
+        alphaData[j * 4 + 1] = 0.0;
+        alphaData[j * 4 + 2] = 0.0;
+        alphaData[j * 4 + 3] = 1.0;
       }
 
       colorTexture.needsUpdate = true;
@@ -648,6 +668,10 @@ diffuseColor.a *= partAlpha;
             camera,
             controls,
             atlas,
+            scene,
+            pickers,
+            materials,
+            colorData,
             partAlphas,
             partData: data,
             alphaData,
@@ -755,7 +779,16 @@ diffuseColor.a *= partAlpha;
         if (hits[0] && hits[0].distance < nearest) { nearest = hits[0].distance; found = i; }
       });
       if (found < 0 && amount > .45) found = findTarget(e.clientX - rect.left, e.clientY - rect.top, e.pointerType === 'touch' ? 24 : 16);
-      if (found >= 0) { hover.hidden = true; select.current(atlas.parts[found].id); }
+      if (found >= 0) {
+        hover.hidden = true;
+        select.current(atlas.parts[found].id);
+      } else {
+        // Tapped empty background in 3D: restore whole body
+        if (dissector.isFocused() || dissector.isActive() || latest.current.selected.length > 0) {
+          dissector.restore();
+          if (restoreCb.current) restoreCb.current();
+        }
+      }
     };
 
     renderer.domElement.addEventListener('pointerdown', down);
@@ -800,14 +833,8 @@ diffuseColor.a *= partAlpha;
       const cinematicActive = dissector.isActive() || (typeof window !== 'undefined' && Boolean((window as unknown as Record<string, unknown>).__ATLAS_DISSECTING__));
       if (cinematicActive) {
         dissector.update(dt);
-        for (let i = 0; i < atlas.parts.length; i++) {
-          alphaData[i * 4] = partAlphas[i];
-          alphaData[i * 4 + 1] = partAlphas[i];
-          alphaData[i * 4 + 2] = partAlphas[i];
-          alphaData[i * 4 + 3] = partAlphas[i];
-        }
         alphaTexture.needsUpdate = true;
-        if (dissector.state === 'ACT_4_SOLO_LOCK' || s.isolate) {
+        if (dissector.state === 'FOCUSED' || dissector.state === 'ACT_4_SOLO_LOCK' || s.isolate) {
           for (let i = 0; i < atlas.parts.length; i++) {
             selectedData[i * 4] = 0;
           }
@@ -875,9 +902,9 @@ diffuseColor.a *= partAlpha;
           }
 
           const selected = selection.has(p.id);
-          const isPartVisible = (s.isolate ? selected : visible.has(p.system) || selected) && isPartDimVisible;
+          const isPartVisible = (visible.has(p.system) || selected) && isPartDimVisible;
           data.set([dx, dy, dz, isPartVisible ? 1 : 0], i * 4);
-          selectedData[i * 4] = (selected && !s.isolate) ? 255 : 0;
+          selectedData[i * 4] = (selected && !s.isolate && !dissector.isFocused()) ? 255 : 0;
           markerPositions.set(data[i * 4 + 3] > .5 ? [c.x + dx, c.y + dy, c.z + dz] : [10000, 10000, 10000], i * 3);
           const mesh = pickers[i];
           if (mesh) { mesh.position.set(dx, dy, dz); mesh.updateMatrix(); mesh.updateMatrixWorld(true); }
@@ -897,7 +924,7 @@ diffuseColor.a *= partAlpha;
       }
       if (moving && !s.isolate && !cinematicActive) fit(amount > .5 ? 'front' : s.view, Math.max(0, (amount - .3) / .7));
 
-      const isolateKey = s.isolate && !cinematicActive ? s.selected.join(',') + ':' + s.reset + ':' + s.inspectorOpen + ':' + camera.aspect : '';
+      const isolateKey = s.isolate && !cinematicActive && !dissector.isFocused() ? s.selected.join(',') + ':' + s.reset + ':' + s.inspectorOpen + ':' + camera.aspect : '';
       if (isolateKey !== lastIsolate || (s.isolate && moving && !cinematicActive)) {
         if (s.isolate && !cinematicActive) {
           const box = new T.Box3();
@@ -946,7 +973,7 @@ diffuseColor.a *= partAlpha;
       const isDimorphic = dynamicProps.current.mode === 'dimorphic' ||
         dynamicProps.current.femalePath === 'female-dimorphic' ||
         (dynamicProps.current.mode === 'male' && dynamicProps.current.malePath === 'male-dimorphic');
-      ground.visible = platform.visible = ring.visible = innerRing.visible = !isTrunk && !isDimorphic && amount < .5 && !s.isolate && !cinematicActive;
+      ground.visible = platform.visible = ring.visible = innerRing.visible = !isTrunk && !isDimorphic && amount < .5 && !s.isolate && !cinematicActive && !dissector.isFocused();
       markers.visible = amount > .75 && !cinematicActive;
 
       if (dirty) {
